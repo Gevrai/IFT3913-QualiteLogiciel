@@ -2,11 +2,12 @@ ANTLR_PATH := ../antler/antlr-4.5.3-complete.jar
 SRC_DIR := src
 BUILD_DIR := _build
 
-MAIN = UCDFileParser
+MAIN = App
 
 ANTLR4=java -jar $(ANTLR_PATH)
 
-CLASSES := ./src/parser/*.java
+CLASSES := ./src/**/*.java
+CLASSES += ./src/*.java
 
 JAVAC=javac -classpath '$$CLASSPATH:$(ANTLR_PATH)' -d $(BUILD_DIR)
 
