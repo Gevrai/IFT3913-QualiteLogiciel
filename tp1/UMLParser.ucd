@@ -1,0 +1,10 @@
+MODEL UMLParser
+
+CLASS UMLClass
+ATTRIBUTES
+	className : String
+OPERATIONS
+	getClassName() : String,
+	getNbAttributes() : Integer,
+	getNbOperations() : Integer
+;
