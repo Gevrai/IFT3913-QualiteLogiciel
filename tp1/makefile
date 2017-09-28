@@ -2,12 +2,13 @@ ANTLR_PATH := ../antler/antlr-4.5.3-complete.jar
 SRC_DIR := src
 BUILD_DIR := _build
 
+MAIN = UCDFileParser
+
 ANTLR4=java -jar $(ANTLR_PATH)
-GRUN=java org.antlr.v4.gui.TestRig
 
 CLASSES := ./src/parser/*.java
 
-JAVAC=javac -classpath $(ANTLR_PATH) -d $(BUILD_DIR)
+JAVAC=javac -classpath '$$CLASSPATH:$(ANTLR_PATH)' -d $(BUILD_DIR)
 
 all: clean build run
 
@@ -22,4 +23,4 @@ build_parser :
 	$(JAVAC) $(CLASSES)
 
 run :
-	echo running
+	java -cp "$(BUILD_DIR):$(ANTLR_PATH)" $(MAIN) parser/testFiles/League.ucd
