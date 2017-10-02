@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.List;
 
+import uml.UMLModel;
+import parser.UcdSyntaxParser;
 import util.FileReader;
 
 public class App {
@@ -15,9 +17,7 @@ public class App {
 
 			try {
 				List<String> fileContent = FileReader.getFileContentFormatted(args[0]);
-				for (String s : fileContent) {
-					System.out.println(s);
-				}
+				UMLModel model = UcdSyntaxParser.parse(fileContent);
 			} catch (IOException e) {
 				System.out.println(args[0] + " is not a valid ucd file.");
 			}
