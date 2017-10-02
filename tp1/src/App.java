@@ -1,9 +1,10 @@
-import java.io.File;
-import java.util.Scanner;
-import org.antlr.v4.runtime.tree.*;
+import java.io.IOException;
+import java.util.List;
+
+import util.FileReader;
 
 public class App {
-		public static void main(String[] args) throws Exception {
+		public static void main(String[] args) {
 
 			if (args.length == 0) {
 				System.out.println("Need a .ucd file to parse");
@@ -11,8 +12,14 @@ public class App {
 			}
 
 			System.out.println("Parsing file" + args[0]);
-			String fileContent = new Scanner(new File(args[0])).useDelimiter("\\Z").next();
 
-			ParseTree tree = new UCDFileParser().run(fileContent);
+			try {
+				List<String> fileContent = FileReader.getFileContentFormatted(args[0]);
+				for (String s : fileContent) {
+					System.out.println(s);
+				}
+			} catch (IOException e) {
+				System.out.println(args[0] + " is not a valid ucd file.");
+			}
 		}
 }

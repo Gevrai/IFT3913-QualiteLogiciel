@@ -3,8 +3,10 @@ BUILD_DIR := _build
 
 MAIN = App
 
-CLASSES := ./src/**/*.java
-CLASSES += ./src/*.java
+# CLASSES := ./src/**/*.java
+# CLASSES += ./src/*.java
+CLASSES := ./src/App.java
+CLASSES += ./src/util/FileReader.java
 
 JAVAC=javac -d $(BUILD_DIR)
 
@@ -20,4 +22,4 @@ build_parser :
 	$(JAVAC) $(CLASSES)
 
 run :
-	java -cp "$(BUILD_DIR)" $(MAIN) parser/testFiles/League.ucd
+	java -cp "$(BUILD_DIR)" $(MAIN) testFiles/League.ucd
