@@ -1,4 +1,4 @@
-package UML;
+package uml.types;
 
 public interface IType {
       

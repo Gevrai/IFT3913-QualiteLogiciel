@@ -3,10 +3,12 @@ BUILD_DIR := _build
 
 MAIN = App
 
-# CLASSES := ./src/**/*.java
-# CLASSES += ./src/*.java
-CLASSES := ./src/App.java
-CLASSES += ./src/util/FileReader.java
+CLASSES := \
+	./src/util/*.java \
+	./src/uml/**/*.java \
+	./src/uml/*.java \
+	./src/parser/*.java \
+	./src/*.java \
 
 JAVAC=javac -d $(BUILD_DIR)
 

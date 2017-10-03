@@ -10,7 +10,7 @@ public class UmlParsingError extends Exception {
 	}
 
 	@Override
-	public String toString() {
+	public String getMessage() {
 		return "UmlParsingError :" + errorMessage ;
 	}
 

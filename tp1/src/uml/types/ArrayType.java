@@ -1,9 +1,19 @@
 package uml.types;
 
-import java.util.Vector;
 
 public class ArrayType implements IType {
 
-    public Vector  elementsType;
+	public IType elementsType;
+
+    public ArrayType(IType type) {
+    	this.elementsType = type;
+	}
+    
+    public IType getElementsType() { return elementsType; }
+
+	@Override
+	public String getTypeString() {
+		return elementsType.getTypeString() + "[]";
+	}
 
 }

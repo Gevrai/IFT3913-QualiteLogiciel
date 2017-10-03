@@ -1,22 +1,20 @@
 package uml;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import uml.uml_associations.*;
-import uml.uml_classes.*;
+import uml.uml_associations.UMLAssociation;
+import uml.uml_classes.UMLClass;
 
 public class UMLModel {
 
 	public String modelName;
-	public Map<String, UMLClass> classes;
+	public List<UMLClass> classes;
 	public List<UMLAssociation> associations;
 	
 	public UMLModel(String modelName) {
 		this.modelName = modelName;
-		this.classes = new HashMap<String, UMLClass>();
+		this.classes = new ArrayList<UMLClass>();
 		this.associations = new ArrayList<UMLAssociation>();
 	}
 
@@ -25,6 +23,15 @@ public class UMLModel {
 	}
 	
 	public boolean addClass(UMLClass umlClass) {
-		return classes.put(umlClass.getClassName(), umlClass) == null;
+		return classes.add(umlClass);
+	}
+	
+	public String toString() {
+		String s = "MODEL " + modelName + "\n";
+		for(UMLClass c : classes) 
+			s += c.toString() + ";\n\n";
+		for (UMLAssociation a : associations) 
+			s += a.toString() + ";\n\n";
+		return s;
 	}
 }

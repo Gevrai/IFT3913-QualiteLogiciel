@@ -1,4 +1,9 @@
-package UML;
+package uml.types;
 
-public class NumberType implements IType, IType {
+public class NumberType implements IType {
+
+	@Override
+	public String getTypeString() {
+		return "Number";
+	}
 }
