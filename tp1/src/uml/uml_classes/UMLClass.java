@@ -4,9 +4,9 @@ import java.util.List;
 
 public class UMLClass {
 
-	public String className;
-	public List<Attribute> attributes;
-	public List<Operation> operations;
+	private String className;
+	private List<Attribute> attributes;
+	private List<Operation> operations;
 
 	public UMLClass(String className, List<Attribute> attributes, List<Operation> operations) {
 		this.className = className;
@@ -14,9 +14,11 @@ public class UMLClass {
 		this.operations = operations;
 	}
 
-	public String getClassName() {
-		return className;
-	}
+	public String getClassName() { return className; }
+
+	public List<Attribute> getAttributes() { return attributes; }
+
+	public List<Operation> getOperations() { return operations; }
 	
 	public String toString() {
 		String s = "CLASS " + className + "\n\tATTRIBUTES";
@@ -37,4 +39,7 @@ public class UMLClass {
 		}
 		return s + "\n";
 	}
+
+	
+	
 }

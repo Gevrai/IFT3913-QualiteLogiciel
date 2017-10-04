@@ -1,5 +1,7 @@
 package gui;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -7,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
@@ -16,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
 public class UMLView extends JFrame {
 
 	private JTextField textFileName = new JTextField();
-	private JTextField textField_4;
+	private JTextField textDetails;
 
 	private JLabel labelClasse = new JLabel("Classes");
 	private JLabel labelAttribut = new JLabel("Attributs");
@@ -31,11 +34,11 @@ public class UMLView extends JFrame {
 	private JList<String> listMethodes = new JList<String>();
 	private JList<String> listAssociation = new JList<String>();
 
-	private JPanel panelClasses = new JPanel();
-	private JPanel panelAttributs = new JPanel();
-	private JPanel panelSousClasses = new JPanel();
-	private JPanel panelMethodes = new JPanel();
-	private JPanel panelAssociation = new JPanel();
+	private JPanel panelClasses = new JPanel(new BorderLayout());
+	private JPanel panelAttributs = new JPanel(new BorderLayout());
+	private JPanel panelSousClasses = new JPanel(new BorderLayout());
+	private JPanel panelMethodes = new JPanel(new BorderLayout());
+	private JPanel panelAssociation = new JPanel(new BorderLayout());
 
 	private JButton btnChargerFichier = new JButton("Charger fichier");
 
@@ -79,16 +82,19 @@ public class UMLView extends JFrame {
 		labelDetails.setBounds(146, 394, 312, 14);
 		getContentPane().add(labelDetails);
 		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setBounds(146, 419, 312, 119);
-		getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		textDetails = new JTextField();
+		textDetails.setEditable(false);
+		textDetails.setBounds(146, 419, 312, 119);
+		getContentPane().add(textDetails);
+		textDetails.setColumns(10);
 		
 		panelClasses.setBorder(UIManager.getBorder("TextField.border"));
 		panelClasses.setBounds(23, 122, 113, 416);
 		getContentPane().add(panelClasses);
-		panelClasses.add(listClasses);
+		panelClasses.add(new JScrollPane(listClasses), BorderLayout.CENTER);
+		String[] test = {"fegeaweg","fegeaweg","fegeaweg"};
+		setListClasses(test);
+
 		listClasses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listClasses.setBackground(Color.WHITE);
 		listClasses.setBorder(UIManager.getBorder("TextPane.border"));
@@ -96,22 +102,26 @@ public class UMLView extends JFrame {
 		panelAttributs.setBorder(UIManager.getBorder("TextField.border"));
 		panelAttributs.setBounds(146, 120, 143, 112);
 		getContentPane().add(panelAttributs);
+		panelAttributs.add(new JScrollPane(listAttributs), BorderLayout.CENTER);
 		listAttributs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelAttributs.add(listAttributs);
 		
 		panelSousClasses.setBorder(UIManager.getBorder("TextField.border"));
 		panelSousClasses.setBounds(146, 289, 143, 87);
 		getContentPane().add(panelSousClasses);
+		panelSousClasses.add(new JScrollPane(listSousClasses), BorderLayout.CENTER);
 		panelSousClasses.add(listSousClasses);
 		
 		panelMethodes.setBorder(UIManager.getBorder("TextField.border"));
 		panelMethodes.setBounds(315, 120, 143, 112);
 		getContentPane().add(panelMethodes);
+		panelMethodes.add(new JScrollPane(listMethodes), BorderLayout.CENTER);
 		panelMethodes.add(listMethodes);
 		
 		panelAssociation.setBorder(UIManager.getBorder("TextField.border"));
 		panelAssociation.setBounds(315, 289, 143, 87);
 		getContentPane().add(panelAssociation);
+		panelAssociation.add(new JScrollPane(listAssociation), BorderLayout.CENTER);
 		panelAssociation.add(listAssociation);
 		
 		btnChargerFichier.setBounds(23, 33, 113, 23);

@@ -22,4 +22,12 @@ public class Generalization extends UMLAssociation {
 		}
 		return s + "\n";
 	}
+
+	public String getSuperclass() {
+		return superClass;
+	}
+
+	public List<String> getSubclasses() {
+		return subclasses;
+	}
 }

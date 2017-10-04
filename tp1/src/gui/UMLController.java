@@ -7,11 +7,16 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JFileChooser;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import parser.UcdSyntaxParser;
 import parser.UmlParsingError;
 import uml.UMLModel;
+import uml.uml_classes.Attribute;
+import uml.uml_classes.Operation;
+import uml.uml_classes.UMLClass;
 import util.FileReader;
 
 public class UMLController {
@@ -24,7 +29,9 @@ public class UMLController {
 		this.view.setVisible(true);
 		this.model = null;
 		this.view.addBtnChargerFichierListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) { searchFileDialogAndParse(); } });
+			public void actionPerformed(ActionEvent arg0) { searchFileDialogAndParse();}});
+		this.view.addListClassSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) { showSelectedClassInfo();}});
 	}
 
 	// Opens up a dialog for the user to find a file and parses it if he does
@@ -49,6 +56,7 @@ public class UMLController {
 			List<String> fileContent = FileReader.getFileContentFormatted(filePath);
 			this.model = UcdSyntaxParser.parse(fileContent);
 			this.view.setFilePathText(filePath);
+			showClasses();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("\n" + filePath + " is not a valid ucd file.");
@@ -58,4 +66,60 @@ public class UMLController {
 		}
 	}
 	
+	// Respond to selected item in Class box
+	public void showSelectedClassInfo() {
+		showAttributs();
+		showOperations();
+		showSubclasses();
+		// TODO subclasses and associations
+	}
+	
+	// Show the class list in UI
+	public void showClasses() {
+		List<UMLClass> listClasses = this.model.getClasses();
+		String[] classes = new String[listClasses.size()];
+		for (int i=0; i<classes.length;i++) {
+			classes[i] = listClasses.get(i).getClassName();
+		}
+		this.view.setListClasses(classes);
+	}
+	
+	// Show the attributes list in UI
+	public void showAttributs() {
+		String selectedClass = this.view.getSelectedClass();
+		UMLClass c = this.model.getClassFromName(selectedClass);
+		if (c == null) { return; }
+		List<Attribute> listAttributs = c.getAttributes();
+		String[] attributs = new String[listAttributs.size()];
+		for (int i=0; i<attributs.length;i++) {
+			attributs[i] = listAttributs.get(i).getName();
+		}
+		this.view.setListAttributs(attributs);
+	}
+
+	// Show the operations list in UI
+	public void showOperations() {
+		String selectedClass = this.view.getSelectedClass();
+		UMLClass c = this.model.getClassFromName(selectedClass);
+		if (c == null) { return; }
+		List<Operation> listOperations = c.getOperations();
+		String[] operations = new String[listOperations.size()];
+		for (int i=0; i<operations.length;i++) {
+			operations[i] = listOperations.get(i).getName();
+		}
+		this.view.setListMethodes(operations);
+	}
+	
+	// Show the subclasses of currently selected class
+	public void showSubclasses() {
+		String selectedClass = this.view.getSelectedClass();
+		List<UMLClass> subclasses = this.model.getSubclasses(selectedClass);
+		String[] subclassesStr = new String[subclasses.size()];
+		for (int i=0; i<subclassesStr.length;i++) {
+			subclassesStr[i] = subclasses.get(i).getClassName();
+		}
+		this.view.setListSousClasses(subclassesStr);
+	}
+	
+
 }
