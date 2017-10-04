@@ -15,16 +15,74 @@
 \date{Remis le 5 Octobre 2017}
 \maketitle
 
-\section*{Diagramme de classe pour l'application}
-Pour notre travaille nous avons décider de diviser notre projet en 3 différents paquets. Un premier qui contient l'interface graphique, un second qui contient les différentes informations que l'on doit aller chercher dans le fichier. Finalement, nous avons un fichier qui contient le parseur qui prend un fichier.uml et va générer les objets qu'il nous faut afin de les affichées dans l'interface graphiques.Comme le montre l'image suivant.
+\section*{Introduction}
+
+\subsection*{Description du logiciel}
+Ce logiciel affiche une interface usager simple à l'ouverture, très semblable
+à l'exemple d'interface usager de l'énoncé du travail pratique. Le bouton "Charger
+fichier" ouvre une fenêtre système permettant de sélectionner un fichier .ucd.
+Lorsqu'un fichier est choisi, il est \emph{parser} et ses éléments sont affichés dans
+les champs correspondants de l'interface.
+
+\subsection*{Ligne de compilation}
+Nous avons opté pour un \emph{makefile} histoire de rendre la compilation et l'exécution
+la plus facile possible sur les machines du DIRO. Un simple \emph{make} compile
+l'entiereté du logiciel et l'exécute. Pour voir les autres options, \emph{make help}
+explique les différentes commandes possibles.
+
+\section*{Conception}
+Pour notre travail nous avons décidé de diviser notre projet en 3 différents
+paquets, comme on le voit dans le diagramme de paquet suivant.
 \newline 
 \includegraphics[scale=.3]{DiagrammePaquet.png}
 
-Aussi nous avons divisé en plusieurs classe notre application UML.Nous avons une classe  "UML\_Classe" qui elle va contenir toute les classes du fichier UML. Ensuite cette classe possédre des opération et des attribut. les deux sont des classes qui ont chaqu'un leur propre signification. De l'autre côté on a la classe "UML\_Association" qui elle a pour unique but de démontrer les liens entre 2 classes indiqué dans le diagramme UML.
+\subsection{Parseur}
+Le parseur est inclus dans une seule classe statique, dont la seule méthode
+publique \emph{parse} prend une liste de \emph{String} correspondants aux lignes d'un
+fichier \emph{.ucd} et renvoit le \emph{UMLModel} correspondant. 
+
+Le \emph{parsing} est majoritairement fait avec des expressions régulières,
+principalement parce que la grammaire \emph{BNF} donné dans l'énoncé si
+prêtait particulièrement bien. Ainsi, on découpe le texte en de plus en plus
+petits tronçons et on créer les objets du paquet \emph{uml} directement.
+
+\subsection{Interface Usager}
+
+
+\subsection{Représentation des éléments UML}
+L'image suivante montre le diagramme de Classe de notre représentation UML.
+\newline 
+\includegraphics[scale=.3]{DiagrammeClasse.png}
+
+Ainsi, nous avons divisé en plusieurs classe notre représentation des éléments
+\emph{UML}. Tout en haut, la classe \emph{UMLModel} contient tout les autres
+éléments nécessaires. Nous avons une classe "UML\_Classe" qui représente les
+classes \emph{UML}. Ensuite cette classe posséde des opérations et des attributs, qui eux mêmes ont
+des 
+
+De l'autre côté on a la
+classe "UML\_Association" qui elle a pour unique but de démontrer les liens
+entre 2 classes indiqué dans le diagramme UML.
 \newline
 \includegraphics[scale=.4]{DiagrammeClasse.png}
 
-\section*{Utilisation de la librairie swing}
+\section*{Implantation}
+
+\subsection{Parseur}
+Le parseur est inclus dans une seule classe statique, dont la seule méthode
+publique \emph{parse} prend une liste de \emph{String} correspondants aux lignes d'un
+fichier \emph{.ucd} et renvoit le \emph{UMLModel} correspondant. 
+
+Le \emph{parsing} est majoritairement fait avec des expressions régulières,
+principalement parce que la grammaire \emph{BNF} donné dans l'énoncé si
+prêtait particulièrement bien. Ainsi, on découpe le texte en de plus en plus
+petits tronçons et on créer les objets du paquet \emph{uml} directement.
+
+\section*{Problèmes rencontrés}
+
+\section*{Développement futur}
+Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
+et permette l'exportation vers un fichier /.ucd/.
 
 
 
