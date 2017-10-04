@@ -1,6 +1,6 @@
+import java.awt.EventQueue;
 import java.io.IOException;
 import java.util.List;
-
 import parser.UcdSyntaxParser;
 import parser.UmlParsingError;
 import uml.UMLModel;
@@ -26,5 +26,18 @@ public class App {
 		} catch (UmlParsingError e) {
 			System.out.println(e.getMessage());
 		}
+		
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Display window = new Display();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 }
