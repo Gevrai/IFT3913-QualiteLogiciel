@@ -8,6 +8,7 @@ CLASSES := \
 	./src/uml/**/*.java \
 	./src/uml/*.java \
 	./src/parser/*.java \
+	./src/gui/*.java \
 	./src/*.java \
 
 JAVAC=javac -d $(BUILD_DIR)
@@ -25,3 +26,4 @@ build_parser :
 
 run :
 	java -cp "$(BUILD_DIR)" $(MAIN) testFiles/League.ucd
+
