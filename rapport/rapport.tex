@@ -15,7 +15,6 @@
 	\date{Remis le 5 Octobre 2017}
 	\maketitle
 	
-	\section*{Introduction}
 	
 	\subsection*{Description du logiciel}
 	Ce logiciel affiche une interface usager simple à l'ouverture, très semblable
@@ -85,7 +84,13 @@
 	
 	
 	\section*{Problèmes rencontrés}
-	
+Nous avons utilisé la librairie swing mais on s'est affronté à des problèmes. Nous avons eu des problèmes avec l'interface graphique. Notre application a eu de la misère à afficher toute l'information dans les cases si les noms des attributs,méthodes,associations ou sous-classes sont trop longs.
+
+De plus, à un moment les éléments affichés d'une liste étaient limités et ne prenaient pas tout l'espace de la boîte. On a résolu ce problème en s'assurant que notre JScrollPane ait la propriété BorderLayout.Center.  
+
+Par la suite, pour pouvoir gérer la sélection des multiples listes dans notre application, nous avons dû comme mentionner plus haut implémenter un MVC. Car c'était la seule solution qui nous permettait d'implémenter nos fonctions d'écoute pour toutes les listes dans l'application. Cela a eu comme conséquence que nous devions créer une méthode pour chaque liste de notre application qui génère une liste contenant les informations de la classe, la méthode, l'attribut, les sous-classes ou les associations.         
+
+   
 	
 	
 	
