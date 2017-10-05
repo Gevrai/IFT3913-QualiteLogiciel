@@ -6,28 +6,28 @@ import uml.uml_classes.UMLClass;
 
 public class Generalization extends UMLAssociation {
 
-	public String superClass;
-	public List<String> subclasses;
+	public String superClassName;
+	public List<String> subclassesNames;
 
 	public Generalization(String superClass, List<String> subclasses) {
-		this.superClass = superClass;
-		this.subclasses = subclasses;
+		this.superClassName = superClass;
+		this.subclassesNames = subclasses;
 	}
 
 	public String toString() {
-		String s = "GENERALIZATION " + superClass + "\n\tSUBCLASSES ";
-		s += subclasses.get(0);
-		for (int i = 1; i < subclasses.size(); i++) {
-			s += ", " + subclasses.get(i);
+		String s = "GENERALIZATION " + superClassName + "\n\tSUBCLASSES ";
+		s += subclassesNames.get(0);
+		for (int i = 1; i < subclassesNames.size(); i++) {
+			s += ", " + subclassesNames.get(i);
 		}
 		return s + "\n";
 	}
 
-	public String getSuperclass() {
-		return superClass;
+	public String getSuperclassName() {
+		return superClassName;
 	}
 
-	public List<String> getSubclasses() {
-		return subclasses;
+	public List<String> getSubclassesNames() {
+		return subclassesNames;
 	}
 }

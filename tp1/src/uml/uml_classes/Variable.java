@@ -4,8 +4,8 @@ import uml.types.IType;
 
 public abstract class Variable {
 
-	public String name;
-    public IType  type;
+	private String name;
+    private IType  type;
 
 	public Variable(String name, IType type) {
 		this.name = name;

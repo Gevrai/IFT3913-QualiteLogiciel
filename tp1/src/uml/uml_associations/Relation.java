@@ -2,9 +2,9 @@ package uml.uml_associations;
 
 public class Relation extends UMLAssociation { 
 
-	public String name;
-	public Role source; 
-	public Role destination;
+	private String name;
+	private Role source; 
+	private Role destination;
 
 	public Relation(String name, Role source, Role destination) {
 		this.name = name;
@@ -15,5 +15,13 @@ public class Relation extends UMLAssociation {
 	public String toString() {
 		return "RELATION " + name + "\n\tROLES\n\t" + source + ",\n\t" + destination + "\n";
 	}
+
+	public String getName() { return name; }
+
+	public Role getSource() { return source; }
+
+	public Role getDestination() { return destination; }
+	
+	
 
 }

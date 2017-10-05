@@ -151,17 +151,17 @@ public class UMLView extends JFrame {
 	public String getFilePathText() { return this.textFileName.getText(); }
 	
 	public void setListClasses(String[] classes) { listClasses.setListData(classes); }
-	public String getSelectedClass() { return listClasses.getSelectedValue(); }
+	public int getSelectedClassIndex() { return listClasses.getSelectedIndex(); }
 	
 	public void setListSousClasses(String[] subclasses) { listSousClasses.setListData(subclasses); }
-	public String getSelectedSubclass() { return listSousClasses.getSelectedValue(); }
+	public int getSelectedSubclassIndex() { return listSousClasses.getSelectedIndex(); }
 	
 	public void setListAttributs(String[] attributs) { listAttributs.setListData(attributs); }
-	public String getSelectedAttributs() { return listSousClasses.getSelectedValue(); }
+	public int getSelectedAttributsIndex() { return listSousClasses.getSelectedIndex(); }
 	
 	public void setListMethodes(String[] methodes) { listMethodes.setListData(methodes); }
-	public String getSelectedMethodes() { return listMethodes.getSelectedValue(); }
+	public int getSelectedMethodesIndex() { return listMethodes.getSelectedIndex(); }
 
 	public void setListAssociation(String[] associations) { listAssociation.setListData(associations); }
-	public String getSelectedAssociation() { return listAssociation.getSelectedValue(); }
+	public int getSelectedAssociationIndex() { return listAssociation.getSelectedIndex(); }
 }

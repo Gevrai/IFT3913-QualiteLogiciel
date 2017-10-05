@@ -6,9 +6,9 @@ import uml.types.IType;
 
 public class Operation {
 
-	public String name;
-    public List<Argument>  args;
-	public IType  returnType;
+	private String name;
+    private List<Argument>  args;
+	private IType  returnType;
 
 	public Operation(String name, List<Argument> args, IType returnType) {
 		this.name = name;
