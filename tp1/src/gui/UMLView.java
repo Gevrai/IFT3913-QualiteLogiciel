@@ -1,7 +1,6 @@
 package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.LayoutManager;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -10,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
 public class UMLView extends JFrame {
 
 	private JTextField textFileName = new JTextField();
-	private JTextField textDetails;
+	private JTextArea textDetails = new JTextArea();
 
 	private JLabel labelClasse = new JLabel("Classes");
 	private JLabel labelAttribut = new JLabel("Attributs");
@@ -82,18 +82,15 @@ public class UMLView extends JFrame {
 		labelDetails.setBounds(146, 394, 312, 14);
 		getContentPane().add(labelDetails);
 		
-		textDetails = new JTextField();
 		textDetails.setEditable(false);
+		textDetails.setTabSize(4);
 		textDetails.setBounds(146, 419, 312, 119);
-		getContentPane().add(textDetails);
-		textDetails.setColumns(10);
+		getContentPane().add(textDetails, BorderLayout.CENTER);
 		
 		panelClasses.setBorder(UIManager.getBorder("TextField.border"));
 		panelClasses.setBounds(23, 122, 113, 416);
 		getContentPane().add(panelClasses);
 		panelClasses.add(new JScrollPane(listClasses), BorderLayout.CENTER);
-		String[] test = {"fegeaweg","fegeaweg","fegeaweg"};
-		setListClasses(test);
 
 		listClasses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listClasses.setBackground(Color.WHITE);
@@ -129,39 +126,35 @@ public class UMLView extends JFrame {
 		
 	}
 
+	// Functions to add a listener on UI objects
 	public void addBtnChargerFichierListener(ActionListener listener) {
 		btnChargerFichier.addActionListener(listener); }
-	
 	public void addListClassSelectionListener(ListSelectionListener listener) {
 		listClasses.getSelectionModel().addListSelectionListener(listener); }
-	
 	public void addListSousClassesSelectionListener(ListSelectionListener listener) {
 		listSousClasses.getSelectionModel().addListSelectionListener(listener); }
-
-	public void addListAttributsListener(ListSelectionListener listener) {
-		listClasses.getSelectionModel().addListSelectionListener(listener); }
-
+	public void addListAttributsSelectionListener(ListSelectionListener listener) {
+		listAttributs.getSelectionModel().addListSelectionListener(listener); }
 	public void addListMethodesSelectionListener(ListSelectionListener listener) {
-		listClasses.getSelectionModel().addListSelectionListener(listener); }
-
+		listMethodes.getSelectionModel().addListSelectionListener(listener); }
 	public void addListAssociationSelectionListener(ListSelectionListener listener) {
-		listClasses.getSelectionModel().addListSelectionListener(listener); }
+		listAssociation.getSelectionModel().addListSelectionListener(listener); }
 
+	
+	// Setter and getter of UI list objects
 	public void setFilePathText(String filePath) { this.textFileName.setText(filePath); }
 	public String getFilePathText() { return this.textFileName.getText(); }
-	
 	public void setListClasses(String[] classes) { listClasses.setListData(classes); }
 	public int getSelectedClassIndex() { return listClasses.getSelectedIndex(); }
-	
 	public void setListSousClasses(String[] subclasses) { listSousClasses.setListData(subclasses); }
 	public int getSelectedSubclassIndex() { return listSousClasses.getSelectedIndex(); }
-	
 	public void setListAttributs(String[] attributs) { listAttributs.setListData(attributs); }
-	public int getSelectedAttributsIndex() { return listSousClasses.getSelectedIndex(); }
-	
+	public int getSelectedAttributsIndex() { return listAttributs.getSelectedIndex(); }
 	public void setListMethodes(String[] methodes) { listMethodes.setListData(methodes); }
 	public int getSelectedMethodesIndex() { return listMethodes.getSelectedIndex(); }
-
 	public void setListAssociation(String[] associations) { listAssociation.setListData(associations); }
 	public int getSelectedAssociationIndex() { return listAssociation.getSelectedIndex(); }
+
+	// Setter for "detailed" text box
+	public void setDetailedText(String detailedInfos) { this.textDetails.setText(detailedInfos); }
 }

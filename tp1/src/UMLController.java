@@ -39,10 +39,44 @@ public class UMLController {
 		this.view = new UMLView();
 		this.view.setVisible(true);
 		this.model = null;
+		
+		setUpListeners();
+	}
+	
+	// Sets up all necessary listeners for user interaction with the program
+	private void setUpListeners() {
+
 		this.view.addBtnChargerFichierListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { searchFileDialogAndParse();}});
+			public void actionPerformed(ActionEvent e) { searchFileDialogAndParse();}
+			});
+
 		this.view.addListClassSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) { showSelectedClassInfo();}});
+			public void valueChanged(ListSelectionEvent e) { showSelectedClassInfo();}
+			});
+
+		this.view.addListAttributsSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) { 
+				int i = view.getSelectedAttributsIndex();
+				if (i >= 0) showDetailedInfos(attributesShown.get(i).toString());}
+			});
+		
+		this.view.addListMethodesSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) { 
+				int i = view.getSelectedMethodesIndex();
+				if (i >= 0) showDetailedInfos(operationsShown.get(i).toString());}
+			});
+		
+		this.view.addListSousClassesSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) { 
+				int i = view.getSelectedSubclassIndex();
+				if (i >= 0) showDetailedInfos(subclassesShown.get(i).toString());}
+			});
+		
+		this.view.addListAssociationSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) { 
+				int i = view.getSelectedAssociationIndex();
+				if (i >= 0) showDetailedInfos(associationsShown.get(i).toString());}
+			});
 	}
 
 	// Opens up a dialog for the user to find a file and parses it if he does
@@ -77,15 +111,17 @@ public class UMLController {
 		}
 	}
 	
-	public UMLClass getSelectedClass() {
-		if (classesShown == null)
-			return null;
+	private UMLClass getSelectedClass() {
+		if (classesShown == null) return null;
 		int index = this.view.getSelectedClassIndex();
 		return this.classesShown.get(index);
 	}
 	
 	// Respond to selected item in Class box
-	public void showSelectedClassInfo() {
+	private void showSelectedClassInfo() {
+		int i = view.getSelectedClassIndex();
+		if (i < 0) return;
+		showDetailedInfos(this.classesShown.get(i).toString());
 		showAttributs();
 		showOperations();
 		showSubclasses();
@@ -93,7 +129,7 @@ public class UMLController {
 	}
 	
 	// Show the class list in UI
-	public void showClasses() {
+	private void showClasses() {
 		List<UMLClass> listClasses = this.model.getClasses();
 		String[] classes = new String[listClasses.size()];
 		for (int i=0; i<classes.length;i++) {
@@ -104,7 +140,7 @@ public class UMLController {
 	}
 	
 	// Show the attributes of currently selected class in UI
-	public void showAttributs() {
+	private void showAttributs() {
 		UMLClass c = getSelectedClass();
 		if (c == null) { return; }
 		List<Attribute> listAttributs = c.getAttributes();
@@ -118,7 +154,7 @@ public class UMLController {
 	}
 
 	// Show the operations of currently selected class in UI
-	public void showOperations() {
+	private void showOperations() {
 		UMLClass c = getSelectedClass();
 		if (c == null) { return; }
 		List<Operation> listOperations = c.getOperations();
@@ -141,7 +177,7 @@ public class UMLController {
 	}
 	
 	// Show the subclasses of currently selected class in UI
-	public void showSubclasses() {
+	private void showSubclasses() {
 		UMLClass c = getSelectedClass();
 		if (c == null) { return; }
 		List<UMLClass> listSubclasses = this.model.getSubclasses(c);
@@ -154,7 +190,7 @@ public class UMLController {
 	}
 	
 	// Show association and aggregation of currently selected class in UI
-	public void showAssociationsAggregations() {
+	private void showAssociationsAggregations() {
 		UMLClass c = getSelectedClass();
 		if (c == null) { return; }
 		List<UMLAssociation> listAssociations = this.model.getAssociatedClasses(c);
@@ -186,5 +222,10 @@ public class UMLController {
 		}
 		this.associationsShown = listAssociations;
 		this.view.setListAssociation(associations);
+	}
+	
+	// Show detailed view of last selected element
+	private void showDetailedInfos(String detailedInfos) {
+		this.view.setDetailedText(detailedInfos);
 	}
 }
