@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.1)  1 OCT 2017 21:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.1)  4 OCT 2017 21:42
 entering extended mode
 **./rapport.tex
 (rapport.tex
@@ -693,32 +693,38 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <DiagrammePaquet.png, id=7, 242.9075pt x 411.5375pt>
 File: DiagrammePaquet.png Graphic file (type png)
  <use DiagrammePaquet.png>
-Package pdftex.def Info: DiagrammePaquet.png used on input line 21.
+Package pdftex.def Info: DiagrammePaquet.png used on input line 36.
 (pdftex.def)             Requested size: 72.8728pt x 123.4622pt.
 
 <DiagrammeClasse.png, id=9, 854.19125pt x 453.695pt>
 File: DiagrammeClasse.png Graphic file (type png)
  <use DiagrammeClasse.png>
-Package pdftex.def Info: DiagrammeClasse.png used on input line 25.
-(pdftex.def)             Requested size: 341.67046pt x 181.47478pt.
+Package pdftex.def Info: DiagrammeClasse.png used on input line 54.
+(pdftex.def)             Requested size: 256.25935pt x 136.10954pt.
 
-[1 <./DiagrammePaquet.png> <./DiagrammeClasse.png>] (rapport.aux) ) 
+[1 <./DiagrammePaquet.png>]
+File: DiagrammeClasse.png Graphic file (type png)
+ <use DiagrammeClasse.png>
+Package pdftex.def Info: DiagrammeClasse.png used on input line 65.
+(pdftex.def)             Requested size: 341.67046pt x 181.47478pt.
+ [2 <./DiagrammeClasse.png>] [3] (rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 4343 strings out of 493323
- 56180 string characters out of 3139066
- 120036 words of memory out of 3000000
- 7786 multiletter control sequences out of 15000+200000
- 32305 words of font info for 39 fonts, out of 3000000 for 9000
+ 4346 strings out of 493323
+ 56217 string characters out of 3139066
+ 121036 words of memory out of 3000000
+ 7788 multiletter control sequences out of 15000+200000
+ 39566 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,6n,30p,470b,423s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program 
-Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/MiKTeX 2.9/font
-s/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm
-/lmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr17.pfb>
-Output written on rapport.pdf (2 pages, 146471 bytes).
+ 39i,6n,30p,654b,423s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fo
+nts/enc/dvips/lm/lm-ec.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
+mbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2
+.9/fonts/type1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmri10.pfb>
+Output written on rapport.pdf (4 pages, 172578 bytes).
 PDF statistics:
- 31 PDF objects out of 1000 (max. 8388607)
+ 41 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
