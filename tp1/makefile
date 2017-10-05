@@ -31,9 +31,3 @@ build :
 ## run   -> Runs the compiled program
 run :
 	java -cp "$(BUILD_DIR)" $(MAIN) testFiles/League.ucd
-
-## pdf   -> Compiles the report
-pdf :
-	pdflatex rapport/rapport.tex
-	mv rapport/rapport.pdf .
-

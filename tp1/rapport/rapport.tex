@@ -30,40 +30,50 @@
 	explique les différentes commandes possibles.
 	
 	\section*{Conception}
-	Pour notre travail, nous avons décidé de diviser notre projet en 3 différents
-	paquets, comme on le voit dans le diagramme de paquet suivant.
-	\newline 
-	\includegraphics[scale=.3]{DiagrammePaquet.png}
 	
-	\subsection*{Parseur}
-	Le parseur est inclus dans une seule classe statique, dont la seule méthode
-	publique \emph{parse} prend une liste de \emph{String} correspondants aux lignes d'un
-	fichier \emph{.ucd} et renvoie le \emph{UMLModel} correspondant. 
-	
-	Le \emph{parsing} est majoritairement fait avec des expressions régulières,
-	principalement parce que la grammaire \emph{BNF} donnée dans l'énoncé si
-	prêtait particulièrement bien. Ainsi, on découpe le texte en de plus en plus
-	petits tronçons et ont créé les objets du paquet \emph{uml} directement.
-	
-	\subsection*{Interface Usager}
-	
+	\subsection*{Interface Usager : Pattern MVC}
+	\includegraphics[scale=.7]{MVC_diagram.png}
+  Après discussions au sein de notre équipe, nous avons opté pour le
+  patron Modèle-Vue-Controlleur pour dirigé l'interaction entre l'interface
+  usager et le modèle \emph{UML} reçu du parseur. Ce patron permet une
+  séparation nette entre l'interface et les données en passant par le biais du
+  controlleur qui dirige absolument tous. Ainsi, la classe \emph{UMLController}
+  s'occupe de répondre aux évènements des éléments de \emph{UMLView}, de
+  quérir et changer le \emph{UMLModel} courant.
+
+	De cette manière, on s’assure que notre application à une forte cohésion et
+  un faible couplage. Aussi, si jamais on veut créer une nouvelle vue ou
+  modifier la vue existante, on peut facilement le faire sans avoir à changer
+  la logique même du programme.
 	
 	\subsection*{Représentation des éléments UML}
-	L'image suivante montre le diagramme de Classe de notre représentation UML.
+	L'image suivante montre le diagramme de Classe de notre représentation des
+  éléments \emph{UML}. Il est à noter que pour rendre le diagramme le plus
+  lisible possible nous n'avons pas inclus les opérations des classes et n'avons
+  garder que les attributs de bases.
 	\newline 
-	\includegraphics[scale=.3]{DiagrammeClasse.png}
-	
-	Ainsi, nous avons divisé en plusieurs classe notre représentation des éléments
-	\emph{UML}. Tout en haut, la classe \emph{UMLModel} contient tous les autres
-	éléments nécessaires. Nous avons une classe "UML\_Classe" qui représente les
-	classes \emph{UML}. Ensuite cette classe possède des attributs et des opérations. Il faut aussi savoir que les méthodes ont aussi  des paramètres pour les opérations. Donc dans notre liste d'opération nous avons le nom de la méthode ainsi que ces paramètres. 
-	
-	De l'autre côté on a la
-	classe "UML\_Association" qui elle a pour unique but de démontrer les liens
-	entre 2 classes indiqués dans le diagramme UML.
-	\newline
-	\includegraphics[scale=.4]{DiagrammeClasse.png}
-	
+	\includegraphics[scale=.7]{UML_diagram.png}
+
+  La classe \emph{UMLModel} se trouve à la tête de la représentation et
+  contient tous les éléments du fichier \emph{.ucd} d'entrée.
+
+  Les différents types d'associations sont tous des sous-classes de
+  \emph{UMLAssociation} et contiennent des \emph{Role}, contenant la
+  \emph{UMLClass} impliqué ainsi qu'une \emph{Multiplicity} représentant le
+  nombre d'éléments impliqués.
+
+  Le modèle contient évidemment aussi des \emph{UMLClass} qui eux mêmes ont des
+  \emph{Operation} et des \emph{Attributes}. Les opérations ont une liste
+  d'\emph{Argument} qui est sous-classe de \emph{Variable}, tous comme les
+  attributs des classes. Bien que, à toutes fins pratiques dans notre
+  implémentation il n'y ai pas de différences entre ces deux sous-classes, nous
+  étions d'avis que la différence logique entre un attribut et un argument
+  demandait des classes distinctes.
+
+  Finalement, \emph{IType} défini une interface pour les types \emph{UML} de
+  base ainsi que les types définis par l'utilisateur, soit les \emph{UMLClass}
+  pré-définis.
+  
 	\section*{Implantation}
 	
 	\subsection*{Parseur}
@@ -71,34 +81,39 @@
 	publique \emph{parse} prend une liste de \emph{String} correspondants aux lignes d'un
 	fichier \emph{.ucd} et renvoie le \emph{UMLModel} correspondant. 
 	
-	Le \emph{parsing} est majoritairement fait avec des expressions régulières,
-	principalement parce que la grammaire \emph{BNF} donnée dans l'énoncé si
+	Le \emph{parsing} est majoritairement effectué avec des expressions régulières,
+	principalement parce que la grammaire \emph{BNF} donnée dans l'énoncé s'y
 	prêtait particulièrement bien. Ainsi, on découpe le texte en de plus en plus
-	petits tronçons et ont créé les objets du paquet \emph{uml} directement.
+	petits tronçons et ont créer les objets du paquet \emph{uml} directement.
 	
 	\subsection*{MVC}
-	Dans notre programme pour afficher les différents objets UML. Nous avons décidé de choisir un modèle MVC(Model-View-Controler). Dans la classe principale, nous avons notre contrôleur de vue. Ensuite on a divisé en deux classes. D’un côté nous avons notre contrôle dans UMLController qui contient toutes les méthodes qui seront utilisées quand on interagit avec notre interface. De l’autre, nous avons nos objets de notre interface graphique. De cette manière, on s’assure que notre application à une forte cohésion et un faible couplage. Si jamais on veut créer une nouvelle vue, on peut facilement le faire.
-	
-	
-	
-	
+  La classe UMLView offre des méthodes permettant d'accrocher des
+  \emph{Listeners} aux différents éléments de l'interface. \emph{UMLController} créer
+  ces \emph{Listeners} et leurs associes des méthodes changeants l'état de
+  l'interface et du UMLModel. Cette implémentation du patron MVC est très de
+  base, mais démontre bien ces avantages, soit sa modularité et la forte
+  cohésion des différentes parties du système. On pourrait très bien continuer
+  le développement de ce logiciel en ajoutant d'autres vues et modèles, sans
+  pour autant avoir à modifier ceux déjà existants car ils ne savent rien des
+  autres composantes. Seul le controlleur est propre à cette application, ce qui
+  est bien conforme au patron MVC.
 	
 	\section*{Problèmes rencontrés}
-Nous avons utilisé la librairie swing mais on s'est affronté à des problèmes. Nous avons eu des problèmes avec l'interface graphique. Notre application a eu de la misère à afficher toute l'information dans les cases si les noms des attributs,méthodes,associations ou sous-classes sont trop longs.
+  Nous avons utilisé la librairie swing mais nous nous sommes confronté à des
+  problèmes en tentant d'afficher correctement les éléments graphiques.
+  Nous éprouvions des difficultés à afficher toute l'information dans les cases
+  si les noms des attributs,méthodes,associations ou sous-classes étaient trop longs.
 
-De plus, à un moment les éléments affichés d'une liste étaient limités et ne prenaient pas tout l'espace de la boîte. On a résolu ce problème en s'assurant que notre JScrollPane ait la propriété BorderLayout.Center.  
+  Le parsing était éprouvant aussi, principalement parce qu'il était difficile
+  de tester les méthodes à chacune des étapes, mais aussi car c'était notre
+  première vrai expérience avec les \emph{REGEX}. Nous avions en fait commencer
+  le parsing avec la librairie externe \emph{ANTLR} qui semblait efficace, mais
+  suite aux commentaires de l'auxiliaire de cours ne le conseillant pas, nous
+  avons choisi de développer notre propre implémentation du parseur.
 
-Par la suite, pour pouvoir gérer la sélection des multiples listes dans notre application, nous avons dû comme mentionner plus haut implémenter un MVC. Car c'était la seule solution qui nous permettait d'implémenter nos fonctions d'écoute pour toutes les listes dans l'application. Cela a eu comme conséquence que nous devions créer une méthode pour chaque liste de notre application qui génère une liste contenant les informations de la classe, la méthode, l'attribut, les sous-classes ou les associations.         
-
-   
-	
-	
-	
-	\section*{Développement futur}
+	\section*{Développements futur}
 	Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
-	et permette l'exportation vers un fichier /.ucd/.
-	
-	
+	et permettre l'exportation du modèle ainsi modifier vers un fichier /.ucd/.
 	
 	
 \end{document}
