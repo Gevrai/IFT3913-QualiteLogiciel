@@ -1,6 +1,9 @@
 package gui;
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -39,6 +42,7 @@ public class UMLView extends JFrame {
 	private JPanel panelSousClasses = new JPanel(new BorderLayout());
 	private JPanel panelMethodes = new JPanel(new BorderLayout());
 	private JPanel panelAssociation = new JPanel(new BorderLayout());
+	private JPanel panelDetails = new JPanel(new BorderLayout());
 
 	private JButton btnChargerFichier = new JButton("Charger fichier");
 
@@ -56,74 +60,125 @@ public class UMLView extends JFrame {
 	private void initializeGUI() {
 		
 		setAutoRequestFocus(false);
-		setBounds(100, 100, 600, 601);
+		setBounds(100, 100, 800, 601);
+		setMinimumSize(new Dimension (600,400));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		JScrollPane scrollPane;
 		
-		labelClasse.setBounds(23, 95, 46, 14);
-		getContentPane().add(labelClasse);
+		// Padding for everything
+		constraints.insets = new Insets(8,8,8,8);
 		
-		textFileName.setBounds(146, 34, 238, 20);
-		getContentPane().add(textFileName);
-		textFileName.setColumns(10);
+		// Top part
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+		getContentPane().add(btnChargerFichier, constraints);
+
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		constraints.gridwidth= 2;
+		getContentPane().add(textFileName, constraints);
 		
-		labelAttribut.setBounds(146, 95, 143, 14);
-		getContentPane().add(labelAttribut);
+		// All others should fill all vertical space available and be roughly same size
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weighty = 0.3;
+
+		// Preferred sizes, bit of a hack, sizes of zero will make them all equal
+		Dimension d = new Dimension(0,0);
+		panelClasses.setPreferredSize(new Dimension(110, 0));
+		panelAttributs.setPreferredSize(d);
+		panelMethodes.setPreferredSize(d);
+		panelSousClasses.setPreferredSize(d);
+		panelAssociation.setPreferredSize(d);
+		panelDetails.setPreferredSize(d);
+
+		// Classes
+		scrollPane = new JScrollPane(listClasses);
+		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
+		panelClasses.add(labelClasse, BorderLayout.PAGE_START);
+		panelClasses.add(scrollPane, BorderLayout.CENTER);
+		constraints.gridx = 0;
+		constraints.gridy = 1;
+		constraints.gridheight = 3;
+		constraints.gridwidth= 1;
+		constraints.weightx = 0;
+		getContentPane().add(panelClasses, constraints);
 		
-		labelMethode.setBounds(315, 95, 143, 14);
-		getContentPane().add(labelMethode);
+		// Attributs
+		scrollPane = new JScrollPane(listAttributs);
+		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
+		panelAttributs.add(labelAttribut, BorderLayout.NORTH);
+		panelAttributs.add(scrollPane, BorderLayout.CENTER);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		constraints.gridheight = 1;
+		constraints.gridwidth= 1;
+		constraints.weightx = 0.3;
+		getContentPane().add(panelAttributs, constraints);
 		
-		labelSousClasses.setBounds(146, 263, 143, 14);
-		getContentPane().add(labelSousClasses);
-		
-		labelAssociation.setBounds(315, 263, 143, 14);
-		getContentPane().add(labelAssociation);
-		
-		labelDetails.setBounds(146, 394, 312, 14);
-		getContentPane().add(labelDetails);
-		
+		// Sous-classes
+		scrollPane = new JScrollPane(listSousClasses);
+		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
+		panelSousClasses.add(labelSousClasses, BorderLayout.NORTH);
+		panelSousClasses.add(scrollPane, BorderLayout.CENTER);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 1;
+		constraints.gridy = 2;
+		constraints.gridheight = 1;
+		constraints.gridwidth= 1;
+		constraints.weightx = 0.3;
+		getContentPane().add(panelSousClasses, constraints);
+
+		// Methodes
+		scrollPane = new JScrollPane(listMethodes);
+		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
+		panelMethodes.add(labelMethode, BorderLayout.NORTH);
+		panelMethodes.add(scrollPane, BorderLayout.CENTER);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		constraints.gridheight = 1;
+		constraints.gridwidth= 1;
+		constraints.weightx = 0.4;
+		getContentPane().add(panelMethodes, constraints);
+
+		// Associations
+		scrollPane = new JScrollPane(listAssociation);
+		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
+		panelAssociation.add(labelAssociation, BorderLayout.NORTH);
+		panelAssociation.add(scrollPane, BorderLayout.CENTER);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 2;
+		constraints.gridy = 2;
+		constraints.gridheight = 1;
+		constraints.gridwidth= 1;
+		constraints.weightx = 0.4;
+		getContentPane().add(panelAssociation, constraints);
+
+		// Details
+		textDetails.setBorder(UIManager.getBorder("TextField.border"));
 		textDetails.setEditable(false);
 		textDetails.setTabSize(4);
-		textDetails.setBounds(146, 419, 312, 119);
-		getContentPane().add(textDetails, BorderLayout.CENTER);
+		panelDetails.add(labelDetails, BorderLayout.NORTH);
+		panelDetails.add(textDetails, BorderLayout.CENTER);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 1;
+		constraints.gridy = 3;
+		constraints.gridheight = 1;
+		constraints.gridwidth = 2;
+		constraints.weightx = 0.7;
+		getContentPane().add(panelDetails, constraints);
 		
-		panelClasses.setBorder(UIManager.getBorder("TextField.border"));
-		panelClasses.setBounds(23, 122, 113, 416);
-		getContentPane().add(panelClasses);
-		panelClasses.add(new JScrollPane(listClasses), BorderLayout.CENTER);
-
+		// Lists should only have one element selectable at a time
 		listClasses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listClasses.setBackground(Color.WHITE);
-		listClasses.setBorder(UIManager.getBorder("TextPane.border"));
-		
-		panelAttributs.setBorder(UIManager.getBorder("TextField.border"));
-		panelAttributs.setBounds(146, 120, 143, 112);
-		getContentPane().add(panelAttributs);
-		panelAttributs.add(new JScrollPane(listAttributs), BorderLayout.CENTER);
 		listAttributs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panelAttributs.add(listAttributs);
-		
-		panelSousClasses.setBorder(UIManager.getBorder("TextField.border"));
-		panelSousClasses.setBounds(146, 289, 143, 87);
-		getContentPane().add(panelSousClasses);
-		panelSousClasses.add(new JScrollPane(listSousClasses), BorderLayout.CENTER);
-		panelSousClasses.add(listSousClasses);
-		
-		panelMethodes.setBorder(UIManager.getBorder("TextField.border"));
-		panelMethodes.setBounds(315, 120, 143, 112);
-		getContentPane().add(panelMethodes);
-		panelMethodes.add(new JScrollPane(listMethodes), BorderLayout.CENTER);
-		panelMethodes.add(listMethodes);
-		
-		panelAssociation.setBorder(UIManager.getBorder("TextField.border"));
-		panelAssociation.setBounds(315, 289, 143, 87);
-		getContentPane().add(panelAssociation);
-		panelAssociation.add(new JScrollPane(listAssociation), BorderLayout.CENTER);
-		panelAssociation.add(listAssociation);
-		
-		btnChargerFichier.setBounds(23, 33, 113, 23);
-		getContentPane().add(btnChargerFichier);
-		
+		listMethodes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listSousClasses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listAssociation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	// Functions to add a listener on UI objects
