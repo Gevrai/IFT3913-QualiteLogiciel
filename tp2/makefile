@@ -7,6 +7,7 @@ CLASSES := \
 	./src/util/*.java \
 	./src/uml/**/*.java \
 	./src/uml/*.java \
+	./src/metrics/*.java \
 	./src/parser/*.java \
 	./src/gui/*.java \
 	./src/*.java \

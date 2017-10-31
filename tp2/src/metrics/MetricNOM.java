@@ -14,6 +14,7 @@ public class MetricNOM extends BaseMetric {
 
 	@Override
 	public double compute(UMLModel m, UMLClass c) {
+		return 0.0;
 	}
 
 }

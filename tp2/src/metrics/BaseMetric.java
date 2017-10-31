@@ -1,5 +1,8 @@
 package metrics;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import uml.UMLModel;
 import uml.uml_classes.UMLClass;
 
@@ -14,7 +17,7 @@ public abstract class BaseMetric {
 		this.acronym = acronym;
 		this.fullName = fullName;
 		this.definition = definition;
-		this.NumberFormat = new DecimalFormat(format);
+		this.formatter = new DecimalFormat(format);
 	}
 
 	public String getAcronym() { return this.acronym; }

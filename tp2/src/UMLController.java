@@ -11,6 +11,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gui.MessagePopup;
 import gui.UMLView;
+import metrics.BaseMetric;
+import metrics.MetricFactory;
 import parser.UcdSyntaxParser;
 import parser.UmlParsingError;
 import uml.UMLModel;
@@ -35,6 +37,8 @@ public class UMLController {
 	private List<Operation> operationsShown;
 	private List<UMLClass> subclassesShown;
 	private List<UMLAssociation> associationsShown;
+	
+	private String metricsOrder[] = {"ANA","NOM","NOA","ITC","ETC","CAC","DIT","CLD","NOC","NOD"};
 
 	public UMLController() {
 		this.view = new UMLView();
@@ -99,7 +103,6 @@ public class UMLController {
 	// Parsing of a file into a UMLModel
 	public void parseUcdFileToModel(String filePath) {
 		try {
-			System.out.println("===============");
 			List<String> fileContent = FileReader.getFileContentFormatted(filePath);
 			this.model = UcdSyntaxParser.parse(fileContent);
 			this.view.setFilePathText(filePath);
@@ -126,6 +129,7 @@ public class UMLController {
 		showOperations();
 		showSubclasses();
 		showAssociationsAggregations();
+		showMetrics();
 	}
 	
 	// Show the class list in UI
@@ -232,5 +236,11 @@ public class UMLController {
 	// Show calculated metrics for currently selected class
 	private void showMetrics() {
 		UMLClass c = getSelectedClass();
+		String[] toShow = new String[metricsOrder.length];
+		for (int i=0; i<toShow.length; i++) {
+			BaseMetric metric = MetricFactory.getMetric(metricsOrder[i]);
+			toShow[i] = metric.computeAndStringify(this.model, c);
+		}
+		this.view.setListMetriques(toShow);
 	}
 }
