@@ -30,6 +30,7 @@ public class UMLView extends JFrame {
 	private JLabel labelSousClasses = new JLabel("Sous-classes");
 	private JLabel labelAssociation = new JLabel("Associations/agrégations");
 	private JLabel labelDetails = new JLabel("Détails");
+	private JLabel labelMetriques = new JLabel("Métriques");
 
 	private JList<String> listClasses = new JList<String>();
 	private JList<String> listAttributs = new JList<String>();
@@ -43,8 +44,10 @@ public class UMLView extends JFrame {
 	private JPanel panelMethodes = new JPanel(new BorderLayout());
 	private JPanel panelAssociation = new JPanel(new BorderLayout());
 	private JPanel panelDetails = new JPanel(new BorderLayout());
+	private JPanel panelMetriques = new JPanel(new BorderLayout());
 
 	private JButton btnChargerFichier = new JButton("Charger fichier");
+	private JButton btnCalculerMetriques = new JButton("Calculer métriques");
 
 	/**
 	 * Create the application.
