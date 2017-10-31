@@ -228,4 +228,9 @@ public class UMLController {
 	private void showDetailedInfos(String detailedInfos) {
 		this.view.setDetailedText(detailedInfos);
 	}
+	
+	// Show calculated metrics for currently selected class
+	private void showMetrics() {
+		UMLClass c = getSelectedClass();
+	}
 }
