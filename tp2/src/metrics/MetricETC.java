@@ -5,7 +5,8 @@ public class MetricETC extends BaseMetric {
 	public MetricETC() {
 		super( "ETC",
 					 "",
-					 "");
+					 "",
+					 "###");
 	}
 
 	@Override

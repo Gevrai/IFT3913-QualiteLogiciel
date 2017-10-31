@@ -5,7 +5,8 @@ public class MetricNOD extends BaseMetric {
 	public MetricNOD() {
 		super( "NOD",
 					 "",
-					 "");
+					 "",
+					 "###");
 	}
 
 	@Override

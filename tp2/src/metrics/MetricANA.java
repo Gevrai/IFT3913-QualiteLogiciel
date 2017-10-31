@@ -9,7 +9,8 @@ public class MetricANA extends BaseMetric {
 	public MetricANA() {
 		super( "ANA",
 				"Average number of arguments",
-				"Nombre moyen d'arguments des méthodes locales pour la classe.");
+				"Nombre moyen d'arguments des méthodes locales pour la classe.",
+				"###.##");
 	}
 
 	@Override

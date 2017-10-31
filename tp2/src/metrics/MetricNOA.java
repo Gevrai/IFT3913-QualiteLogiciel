@@ -5,7 +5,8 @@ public class MetricNOA extends BaseMetric {
 	public MetricNOA() {
 		super( "NOA",
 					 "",
-					 "");
+					 "",
+					 "###");
 	}
 
 	@Override

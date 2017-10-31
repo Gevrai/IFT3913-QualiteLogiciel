@@ -5,7 +5,8 @@ public class MetricDIT extends BaseMetric {
 	public MetricDIT() {
 		super( "DIT",
 					 "",
-					 "");
+					 "",
+					 "###");
 	}
 
 	@Override

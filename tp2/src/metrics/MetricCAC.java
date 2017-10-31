@@ -5,7 +5,8 @@ public class MetricCAC extends BaseMetric {
 	public MetricCAC() {
 		super( "CAC",
 					 "",
-					 "Nombre d'associations (incluant les agrégations) locales et héritées auxquelles participe la classe.");
+					 "Nombre d'associations (incluant les agrégations) locales et héritées auxquelles participe la classe."
+					 "###");
 	}
 
 	@Override
