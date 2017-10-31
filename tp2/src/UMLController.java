@@ -9,6 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import gui.MessagePopup;
 import gui.UMLView;
 import parser.UcdSyntaxParser;
 import parser.UmlParsingError;
@@ -98,16 +99,15 @@ public class UMLController {
 	// Parsing of a file into a UMLModel
 	public void parseUcdFileToModel(String filePath) {
 		try {
+			System.out.println("===============");
 			List<String> fileContent = FileReader.getFileContentFormatted(filePath);
 			this.model = UcdSyntaxParser.parse(fileContent);
 			this.view.setFilePathText(filePath);
 			showClasses();
 		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("\n" + filePath + " is not a valid ucd file.");
+			new MessagePopup(filePath + " is not a valid ucd file.");
 		} catch (UmlParsingError e) {
-			// TODO maybe make this a popup for user?
-			System.out.println(e.getMessage());
+			new MessagePopup(e.getMessage());
 		}
 	}
 	

@@ -36,13 +36,14 @@ public class UMLView extends JFrame {
 	private JList<String> listAttributs = new JList<String>();
 	private JList<String> listSousClasses = new JList<String>();
 	private JList<String> listMethodes = new JList<String>();
-	private JList<String> listAssociation = new JList<String>();
+	private JList<String> listAssociations = new JList<String>();
+	private JList<String> listMetriques = new JList<String>();
 
 	private JPanel panelClasses = new JPanel(new BorderLayout());
 	private JPanel panelAttributs = new JPanel(new BorderLayout());
 	private JPanel panelSousClasses = new JPanel(new BorderLayout());
 	private JPanel panelMethodes = new JPanel(new BorderLayout());
-	private JPanel panelAssociation = new JPanel(new BorderLayout());
+	private JPanel panelAssociations = new JPanel(new BorderLayout());
 	private JPanel panelDetails = new JPanel(new BorderLayout());
 	private JPanel panelMetriques = new JPanel(new BorderLayout());
 
@@ -85,6 +86,11 @@ public class UMLView extends JFrame {
 		constraints.gridwidth= 2;
 		getContentPane().add(textFileName, constraints);
 		
+		constraints.anchor = GridBagConstraints.CENTER;
+		constraints.gridx = 3;
+		constraints.gridy = 0;
+		getContentPane().add(btnCalculerMetriques, constraints);
+
 		// All others should fill all vertical space available and be roughly same size
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weighty = 0.3;
@@ -92,10 +98,11 @@ public class UMLView extends JFrame {
 		// Preferred sizes, bit of a hack, sizes of zero will make them all equal
 		Dimension d = new Dimension(0,0);
 		panelClasses.setPreferredSize(new Dimension(110, 0));
+		panelMetriques.setPreferredSize(new Dimension(170, 0));
 		panelAttributs.setPreferredSize(d);
 		panelMethodes.setPreferredSize(d);
 		panelSousClasses.setPreferredSize(d);
-		panelAssociation.setPreferredSize(d);
+		panelAssociations.setPreferredSize(d);
 		panelDetails.setPreferredSize(d);
 
 		// Classes
@@ -150,17 +157,17 @@ public class UMLView extends JFrame {
 		getContentPane().add(panelMethodes, constraints);
 
 		// Associations
-		scrollPane = new JScrollPane(listAssociation);
+		scrollPane = new JScrollPane(listAssociations);
 		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
-		panelAssociation.add(labelAssociation, BorderLayout.NORTH);
-		panelAssociation.add(scrollPane, BorderLayout.CENTER);
+		panelAssociations.add(labelAssociation, BorderLayout.NORTH);
+		panelAssociations.add(scrollPane, BorderLayout.CENTER);
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.gridx = 2;
 		constraints.gridy = 2;
 		constraints.gridheight = 1;
 		constraints.gridwidth= 1;
 		constraints.weightx = 0.4;
-		getContentPane().add(panelAssociation, constraints);
+		getContentPane().add(panelAssociations, constraints);
 
 		// Details
 		textDetails.setBorder(UIManager.getBorder("TextField.border"));
@@ -176,17 +183,32 @@ public class UMLView extends JFrame {
 		constraints.weightx = 0.7;
 		getContentPane().add(panelDetails, constraints);
 		
+		// Metriques
+		scrollPane = new JScrollPane(listMetriques);
+		scrollPane.setBorder(UIManager.getBorder("TextField.border"));
+		panelMetriques.add(labelMetriques, BorderLayout.NORTH);
+		panelMetriques.add(scrollPane, BorderLayout.CENTER);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 3;
+		constraints.gridy = 1;
+		constraints.gridheight = 3;
+		constraints.gridwidth= 1;
+		constraints.weightx = 0;
+		getContentPane().add(panelMetriques, constraints);
+
 		// Lists should only have one element selectable at a time
 		listClasses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listAttributs.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listMethodes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSousClasses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listAssociation.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listAssociations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	// Functions to add a listener on UI objects
 	public void addBtnChargerFichierListener(ActionListener listener) {
 		btnChargerFichier.addActionListener(listener); }
+	public void addBtnCalculerMetriquesListener(ActionListener listener) {
+		btnCalculerMetriques.addActionListener(listener); }
 	public void addListClassSelectionListener(ListSelectionListener listener) {
 		listClasses.getSelectionModel().addListSelectionListener(listener); }
 	public void addListSousClassesSelectionListener(ListSelectionListener listener) {
@@ -196,7 +218,7 @@ public class UMLView extends JFrame {
 	public void addListMethodesSelectionListener(ListSelectionListener listener) {
 		listMethodes.getSelectionModel().addListSelectionListener(listener); }
 	public void addListAssociationSelectionListener(ListSelectionListener listener) {
-		listAssociation.getSelectionModel().addListSelectionListener(listener); }
+		listAssociations.getSelectionModel().addListSelectionListener(listener); }
 
 	
 	// Setter and getter of UI list objects
@@ -210,8 +232,9 @@ public class UMLView extends JFrame {
 	public int getSelectedAttributsIndex() { return listAttributs.getSelectedIndex(); }
 	public void setListMethodes(String[] methodes) { listMethodes.setListData(methodes); }
 	public int getSelectedMethodesIndex() { return listMethodes.getSelectedIndex(); }
-	public void setListAssociation(String[] associations) { listAssociation.setListData(associations); }
-	public int getSelectedAssociationIndex() { return listAssociation.getSelectedIndex(); }
+	public void setListAssociation(String[] associations) { listAssociations.setListData(associations); }
+	public int getSelectedAssociationIndex() { return listAssociations.getSelectedIndex(); }
+	public void setListMetriques(String[] metriques) { listMetriques.setListData(metriques); }
 
 	// Setter for "detailed" text box
 	public void setDetailedText(String detailedInfos) { this.textDetails.setText(detailedInfos); }
