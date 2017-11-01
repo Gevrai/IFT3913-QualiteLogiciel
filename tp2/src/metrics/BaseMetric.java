@@ -24,9 +24,9 @@ public abstract class BaseMetric {
 	public String getFullName() { return this.fullName; }
 	public String getDefinition() { return this.definition; }
 
-	public String computeAndStringify(UMLModel m, UMLClass c) {
+	public String computeToFormattedString(UMLModel m, UMLClass c) {
 		double result = this.compute(m, c);
-		return this.getAcronym() + " = " + formatter.format(result);
+		return formatter.format(result);
 	}
 
 	public abstract double compute(UMLModel m, UMLClass c);
