@@ -20,7 +20,7 @@ public class MetricNOM extends BaseMetric {
 		
 		List<Operation> listOperation=c.getOperations();
 		List<UMLClass> listClass= m.getClasses();
-		float NOM= listOperation.size();
+		double NOM= listOperation.size();
 		
 			for(int j=0;j<listClass.size();j++)
 			{

@@ -21,7 +21,7 @@ public class MetricNOA extends BaseMetric {
 		
 		List<Attribute> listAttribute=c.getAttributes();
 		List<UMLClass> listClass= m.getClasses();
-		float NOA= listAttribute.size();
+		double NOA= listAttribute.size();
 		
 			for(int j=0;j<listClass.size();j++)
 			{
