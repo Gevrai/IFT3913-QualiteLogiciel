@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FileReader {
 
-  public static List<String> getFileContentFormatted(String filePath) throws IOException {
+  public static List<String> getFileContent(String filePath) throws IOException {
 	  List<String> content = Files.readAllLines(Paths.get(filePath));
 	  return content;
   }

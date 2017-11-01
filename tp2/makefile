@@ -1,7 +1,10 @@
 SRC_DIR := src
 BUILD_DIR := _build
 
+CLASSPATH := junit-4.12.jar:hamcrest-core-1.3.jar
+
 MAIN = App
+TEST = tests/ParserTest
 
 CLASSES := \
 	./src/util/*.java \
@@ -10,7 +13,8 @@ CLASSES := \
 	./src/metrics/*.java \
 	./src/parser/*.java \
 	./src/gui/*.java \
-	./src/*.java \
+	./src/tests/*.java \
+	./src/*.java
 
 JAVAC=javac -d $(BUILD_DIR)
 
@@ -20,15 +24,20 @@ all: clean build run
 ## help  -> Shows this help.
 help:
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
 ## clean -> Cleans the build directory
 clean :
-	rm -rf $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR)
 
 ## build -> Builds the entire program
 build :
 	mkdir -p $(BUILD_DIR)
-	$(JAVAC) $(CLASSES)
+	$(JAVAC) -cp $(CLASSPATH) $(CLASSES)
 
 ## run   -> Runs the compiled program
-run :
+run : build
 	java -cp "$(BUILD_DIR)" $(MAIN) testFiles/League.ucd
+
+## test  -> Apply all unit test to compiled program
+test: build
+	java -cp "$(CLASSPATH):$(BUILD_DIR)" org.junit.runner.JUnitCore $(BUILD_DIR)/$(TEST)
