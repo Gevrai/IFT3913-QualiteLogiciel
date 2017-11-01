@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,7 +45,6 @@ public class UMLController {
 		this.view = new UMLView();
 		this.view.setVisible(true);
 		this.model = null;
-		
 		setUpListeners();
 	}
 	
@@ -53,6 +53,10 @@ public class UMLController {
 
 		this.view.addBtnChargerFichierListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { searchFileDialogAndParse();}
+			});
+
+		this.view.addBtnCalculerMetriquesListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { saveMetricsFromDialog();}
 			});
 
 		this.view.addListClassSelectionListener(new ListSelectionListener() {
@@ -93,13 +97,48 @@ public class UMLController {
 			File currentFile = new File(currentPath);
 			fc.setCurrentDirectory(currentFile);
 		}
-		int returnVal = fc.showDialog(null, "Charger Fichier");
-
+		int returnVal = fc.showDialog(null, "Charger");
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			parseUcdFileToModel(fc.getSelectedFile().toPath().toString());
 		}
 	}
 	
+	// Saves metrics to a csv file selected from a dialog
+	public void saveMetricsFromDialog() {
+		final JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter(".csv", "csv", "CSV"));
+		String currentPath = this.view.getFilePathText();
+		if (currentPath != null) {
+			File currentFile = new File(currentPath);
+			fc.setCurrentDirectory(currentFile);
+		}
+		int returnVal = fc.showDialog(null, "Sauvegarder");
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
+				FileWriter fw = new FileWriter(fc.getSelectedFile());
+				fw.write(metricsToCSVString());
+				fw.close();
+			} catch (IOException e) {
+				new MessagePopup("Error trying to save to " + fc.getSelectedFile().getName() + "\nCould not complete");
+			}
+		}
+	}
+	
+	// Constructs string to be printed into csv file
+	private String metricsToCSVString() {
+		String csvString = "Classe";
+		for (String s : metricsOrder)
+			csvString += "," + s;
+		
+		for (UMLClass c : this.model.getClasses()) {
+			csvString += "\n" + c.getClassName();
+			for (String s : metricsOrder) {
+				csvString += "," + MetricFactory.getMetric(s).compute(this.model, c);
+			}
+		}
+		return csvString;
+	}
+
 	// Parsing of a file into a UMLModel
 	public void parseUcdFileToModel(String filePath) {
 		try {
@@ -239,7 +278,7 @@ public class UMLController {
 		String[] toShow = new String[metricsOrder.length];
 		for (int i=0; i<toShow.length; i++) {
 			BaseMetric metric = MetricFactory.getMetric(metricsOrder[i]);
-			toShow[i] = metric.computeAndStringify(this.model, c);
+			toShow[i] = metric.getAcronym() + " = " + metric.computeToFormattedString(this.model, c);
 		}
 		this.view.setListMetriques(toShow);
 	}
