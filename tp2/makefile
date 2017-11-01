@@ -4,7 +4,7 @@ BUILD_DIR := _build
 CLASSPATH := junit-4.12.jar:hamcrest-core-1.3.jar
 
 MAIN = App
-TEST = tests/ParserTest
+TESTS = tests.ParserTest tests.MetricsTest
 
 CLASSES := \
 	./src/util/*.java \
@@ -40,4 +40,4 @@ run : build
 
 ## test  -> Apply all unit test to compiled program
 test: build
-	java -cp "$(CLASSPATH):$(BUILD_DIR)" org.junit.runner.JUnitCore $(BUILD_DIR)/$(TEST)
+	java -cp "$(CLASSPATH):./$(BUILD_DIR)" org.junit.runner.JUnitCore $(TESTS)
