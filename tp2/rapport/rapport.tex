@@ -9,12 +9,14 @@
 
 
 \begin{document}
-	\title{Devoir 1 IFT 3913}
+	\title{Devoir 2 IFT 3913}
 	\author{Ludovic André et Gevrai Jodoin-Tremblay}
-	\date{Remis le 5 Octobre 2017}
+	\date{Remis le 2 Novembre 2017}
 	\maketitle
 	
 	
+  \section*{Introduction}
+
 	\subsection*{Description du logiciel}
 	Ce logiciel affiche une interface usager simple, très semblable
 	à l'exemple d'interface usager de l'énoncé du travail pratique. Le bouton "Charger
@@ -22,98 +24,92 @@
 	Lorsqu'un fichier est choisi, il est \emph{parser} et ses éléments sont affichés dans
 	les champs correspondants de l'interface. L'usager peut selectionner les
   différents éléments de l'interface pour avoir plus de détails sur ceux-ci.
-	
-	\subsection*{Lignes de compilation}
+
+  Aussi, en sélectionnant une classe dans la boîte de gauche, le programme
+  affiche toutes les métriques pour cette classe dans la boîte de droite. Il est
+  aussi possible d'afficher la définition d'une métriques dans la boîte de
+  détails simplement en la sélectionnant.
+
+  Finalement, l'utilisateur peut exporter les métriques du modèle courant en
+  appuyant sur le bouton \emph{Exporter métriques}. Une boîte de dialogue
+  permetera ainsi de sélectionner la destination et un fichier \emph{.csv} sera
+  créé contenant le résultat de toutes les métriques pour chaque classe.
+
+  \subsection*{Arborescence de l'archive}
+	\subsubsection*{makefile}
 	Nous avons opté pour un \emph{makefile} histoire de rendre la compilation et l'exécution
 	la plus facile possible sur les machines du DIRO. Un simple \emph{make} compile
 	l'entièreté du logiciel et l'exécute. Pour voir les autres options, \emph{make help}
 	explique les différentes commandes possibles.
+
+	\subsubsection*{src}
+  Contient tous le code du projet, sans exception. Puisque nous n'avons utilisé
+  aucune librairie externe dans le projet, l'entièreté du code source s'y trouve.
+
+  La fonction \emph{main} de notre programme se trouve dans la classe
+  \emph{App.java}, que nous avons gardé la plus minimale possible.
+
+  Évidemment, l'arborescence de ce fichier suit l'arborescence de paquet de
+  notre code que l'on avait présenté en grande partie dans le rapport du TP1.
+
+	\subsubsection*{\_build}
+  Histoire de garder notre dossier src assez propre, la compilation des fichiers
+  \emph{.class} se fait vers ce dossier.
+
+	\subsubsection*{rapport}
+  Tout simplement toutes les ressources nécessaires à l'impression de ce
+  merveilleux rapport!
 	
 	\section*{Conception}
+
+  \subsection*{Modifications depuis version 1}
+
+  La grande majorité de notre \emph{backend} n'a pas été modifié, nous avons
+  simplement ajouté les métriques. En effet, le
+  paquet \emph{uml}, dont on avait donné le diagramme de classe dans le rapport
+  du TP1, n'a subi aucun changement.
+
+  Le pattern MVC étant très modulaire, nous avons pû simplement ajouter les
+  éléments nécessaires au controlleur et à l'interface sans vraies embûches.
 	
-	\subsection*{Interface Usager : Pattern MVC}
-	\includegraphics[scale=.7]{images/MVC_diagram.png}
-  Après discussions au sein de notre équipe, nous avons opté pour le
-  patron Modèle-Vue-Controlleur pour dirigé l'interaction entre l'interface
-  usager et le modèle \emph{UML} reçu du parseur. Ce patron permet une
-  séparation nette entre l'interface et les données en passant par le biais du
-  controlleur qui dirige absolument tous. Ainsi, la classe \emph{UMLController}
-  s'occupe de répondre aux évènements des éléments de \emph{UMLView}, de
-  quérir et changer le \emph{UMLModel} courant.
+	\subsection*{Ajout des métriques}
+  Puisque nous avions fait attention d'appliquer au meilleur de nos
+  connaissances, les \emph{patterns} de conception orienté-objet, notre code
+  était assez facile à étendre avec des nouvelles fonctionalités. En effet, pour
+  représenter les calculs de métriques, nous avons créé une classe abstraite
+  \emph{BaseMetric} contenant tous les attributs et méthodes communes à toutes
+  les métriques, avec la seule méthode abstraite
+  \texttt{compute(UMLModel,UMLClass)}. Cette méthode, qui doit être défini par
+  les sous-classes, est évidemment le calcul de la métrique en particulier.
+  Cette hiérarchie permet de facilement ajouter de nouvelles métriques en ne
+  définissant que les parties importantes de celle-ci.
 
-	De cette manière, on s’assure que notre application à une forte cohésion et
-  un faible couplage. Aussi, si jamais on veut créer une nouvelle vue ou
-  modifier la vue existante, on peut facilement le faire sans avoir à changer
-  la logique même du programme.
+  Aussi, comme on peut souvent le voir avec ce genre d'arbre de classe, une
+  classe \emph{MetricFactory} est utilisée pour instancier une métrique en
+  particulier, simplement avec son acronyme.
+
+  Ces métriques sont tous simplement utilisées par le controlleur principal
+  sur le modèle \emph{UML} chargé dans le programme. Il est à noter que le
+  paquet \emph{uml} n'a aucune connaissance des métriques.
 	
-	\subsection*{Représentation des éléments UML}
-	L'image suivante montre le diagramme de Classe de notre représentation des
-  éléments \emph{UML}. Il est à noter que pour rendre le diagramme le plus
-  lisible possible nous n'avons pas inclus les opérations des classes et n'avons
-  garder que les attributs de bases.
-	\newline 
-	\includegraphics[scale=.7]{images/UML_diagram.png}
-
-  La classe \emph{UMLModel} se trouve à la tête de la représentation et
-  contient tous les éléments du fichier \emph{.ucd} d'entrée.
-
-  Les différents types d'associations sont tous des sous-classes de
-  \emph{UMLAssociation} et contiennent des \emph{Role}, contenant la
-  \emph{UMLClass} impliqué ainsi qu'une \emph{Multiplicity} représentant le
-  nombre d'éléments impliqués.
-
-  Le modèle contient évidemment aussi des \emph{UMLClass} qui eux mêmes ont des
-  \emph{Operation} et des \emph{Attributes}. Les opérations ont une liste
-  d'\emph{Argument} qui est sous-classe de \emph{Variable}, tous comme les
-  attributs des classes. Bien que, à toutes fins pratiques dans notre
-  implémentation il n'y ai pas de différences entre ces deux sous-classes, nous
-  étions d'avis que la différence logique entre un attribut et un argument
-  demandait des classes distinctes.
-
-  Finalement, \emph{IType} défini une interface pour les types \emph{UML} de
-  base ainsi que les types définis par l'utilisateur, soit les \emph{UMLClass}
-  pré-définis.
-  
 	\section*{Implantation}
 	
 	\subsection*{Parseur}
-	Le parseur est inclus dans une seule classe statique, dont la seule méthode
-	publique \emph{parse} prend une liste de \emph{String} correspondants aux lignes d'un
-	fichier \emph{.ucd} et renvoie le \emph{UMLModel} correspondant. 
-	
-	Le \emph{parsing} est majoritairement effectué avec des expressions régulières,
-	principalement parce que la grammaire \emph{BNF} donnée dans l'énoncé s'y
-	prêtait particulièrement bien. Ainsi, on découpe le texte en de plus en plus
-	petits tronçons et ont créer les objets du paquet \emph{uml} directement.
+  Nous avons réglé l'erreur de \emph{parsing} causé par un fichier vide en
+  entrée. On affiche maintenant une petite fenêtre signalant à l'utilisateur que
+  le fichier d'entrée était vide. Par le fait même, les fichiers \emph{.ucd}
+  erronées affiches maintenant aussi cette fenêtre, avec un message approprié.
 	
 	\subsection*{MVC}
-  La classe UMLView offre des méthodes permettant d'accrocher des
-  \emph{Listeners} aux différents éléments de l'interface. \emph{UMLController} créer
-  ces \emph{Listeners} et leurs associes des méthodes changeants l'état de
-  l'interface et du UMLModel. Cette implémentation du patron MVC est très de
-  base, mais démontre bien ces avantages, soit sa modularité et la forte
-  cohésion des différentes parties du système. On pourrait très bien continuer
-  le développement de ce logiciel en ajoutant d'autres vues et modèles, sans
-  pour autant avoir à modifier ceux déjà existants car ils ne savent rien des
-  autres composantes. Seul le controlleur est propre à cette application, ce qui
-  est bien conforme au patron MVC.
+  Ce patron s'est avéré être un excellent choix initial pour notre implantation.
+  Les ajouts apportés au code pour les nouvelles fonctionnalités étaient isolés
+  du code déjà existants. Il ne suffisait que d'ajouter quelques fonctions et
+  \emph{Listeners} au controlleur pour les implémenter.
 	
-	\section*{Problèmes rencontrés}
-  Nous avons utilisé la librairie swing mais nous nous sommes confronté à des
-  problèmes en tentant d'afficher correctement les éléments graphiques.
-  Nous éprouvions des difficultés à afficher toute l'information dans les cases
-  si les noms des attributs,méthodes,associations ou sous-classes étaient trop longs.
-
-  Le parsing était éprouvant aussi, principalement parce qu'il était difficile
-  de tester les méthodes à chacune des étapes, mais aussi car c'était notre
-  première vrai expérience avec les \emph{REGEX}. Nous avions en fait commencer
-  le parsing avec la librairie externe \emph{ANTLR} qui semblait efficace, mais
-  suite aux commentaires de l'auxiliaire de cours ne le conseillant pas, nous
-  avons choisi de développer notre propre implémentation du parseur.
+	\section*{Tests}
 
 	\section*{Développements futur}
 	Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
 	et permettre l'exportation du modèle ainsi modifier vers un fichier /.ucd/.
-	
 	
 \end{document}
