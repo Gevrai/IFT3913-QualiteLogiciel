@@ -14,6 +14,8 @@ public class MetricNOC extends BaseMetric {
 
 	@Override
 	public double compute(UMLModel m, UMLClass c) {
-		return 0.0;
+		double NOC=m.getSubclasses(c).size();
+				
+		return NOC;
 	}
 }
