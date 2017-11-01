@@ -45,6 +45,8 @@
 	\subsubsection*{src}
   Contient tous le code du projet, sans exception. Puisque nous n'avons utilisé
   aucune librairie externe dans le projet, l'entièreté du code source s'y trouve.
+  La seule librairie externe utilisée est en effet \emph{JUnit}, mais le code
+  pour les tests est séparé du code source du projet.
 
   La fonction \emph{main} de notre programme se trouve dans la classe
   \emph{App.java}, que nous avons gardé la plus minimale possible.
@@ -59,6 +61,11 @@
 	\subsubsection*{rapport}
   Tout simplement toutes les ressources nécessaires à l'impression de ce
   merveilleux rapport!
+
+  \subsubsection*{tests}
+  Tout le nécessaire pour rouler notre batterie de test grâce à \emph{JUnit}. Il
+  est primordial de ne rien modifier dans ce dossier pour garantir la validité
+  de nos tests.
 	
 	\section*{Conception}
 
@@ -107,6 +114,8 @@
   \emph{Listeners} au controlleur pour les implémenter.
 	
 	\section*{Tests}
+  Pour faciliter l'exécution de notre suite de tests, nous avons opté pour
+  l'écriture de tests automatisés grâce à la librairie \emph{JUnit}. 
 
 	\section*{Développements futur}
 	Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
