@@ -18,6 +18,15 @@ public class MetricDIT extends BaseMetric {
 	public double compute(UMLModel m, UMLClass c) {
 		
 		int DIT=0;
+		int nbMaxIter=0;
+		int courrentIter=0;
+		for(int z =0;z<m.getClasses().size();z++)
+		{
+			nbMaxIter+=m.getSubclasses(m.getClasses().get(z)).size();
+
+			
+			
+		}
 		
 		for(int i=0;i<m.getClasses().size();i++)
 		{
@@ -34,8 +43,8 @@ public class MetricDIT extends BaseMetric {
 					{
 						if(listeSubClass.get(j).getClassName().contains(c.getClassName()))
 						{
-							
-							DIT=1+FindFather(m,curentClass);
+							courrentIter++;
+							DIT=1+FindFather(m,curentClass,nbMaxIter,courrentIter);
 							
 							
 						}
@@ -52,9 +61,16 @@ public class MetricDIT extends BaseMetric {
 		return DIT;
 	}
 	
-	private int FindFather(UMLModel m , UMLClass c)
+	private int FindFather(UMLModel m , UMLClass c, int maxIter,int iterCourent)
 	{
 		
+		if(iterCourent==maxIter)
+		{
+			return -1-iterCourent;
+			
+		}
+			
+			
 		for(int i=0;i<m.getClasses().size();i++)
 		{
 			UMLClass curentClass= m.getClasses().get(i);
@@ -70,8 +86,8 @@ public class MetricDIT extends BaseMetric {
 					{
 						if(listeSubClass.get(j).getClassName().contains(c.getClassName()))
 						{
-							
-							return 1+FindFather(m,curentClass);
+							iterCourent++;
+							return 1+FindFather(m,curentClass,maxIter,iterCourent);
 							
 							
 						}
