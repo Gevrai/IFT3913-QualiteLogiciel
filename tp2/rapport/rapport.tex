@@ -90,6 +90,9 @@
   les sous-classes, est évidemment le calcul de la métrique en particulier.
   Cette hiérarchie permet de facilement ajouter de nouvelles métriques en ne
   définissant que les parties importantes de celle-ci.
+  \begin{center}
+	\includegraphics[scale=.6]{images/Metrics_diagram.png}
+  \end{center}
 
   Aussi, comme on peut souvent le voir avec ce genre d'arbre de classe, une
   classe \emph{MetricFactory} est utilisée pour instancier une métrique en
@@ -142,9 +145,9 @@
   
   \begin{table}[]
     \centering
-    \caption{My caption}
-    \label{my-label}
-    \begin{tabular}{ccccccccccc}
+    \caption{Valeurs des métriques pour les deux fichiers de tests, sur la
+      classe équipe}
+    \begin{tabular}{lcccccccccc}
                           & ANA  & NOM & NOA & ITC & ETC & CAC & DIT & CLD & NOC & NOD \\
       League.ucd          & 0.33 & 3   & 1   & 1   & 1   & 3   & 0   & 0   & 0   & 0   \\
       LeagueMetriques.ucd &      &     &     &     &     &     &     &     &     &     
@@ -155,6 +158,10 @@
   Malheureusement, il est très difficile, voire impossible, de tester
   automatiquement une interface graphique, c'est pourquoi cette section
   contient quelques tests manuels.
+
+  \subsubsection{Fichier valide - League.ucd}
+  - Fichier en entrée : League.ucd
+  - Sortie prévue : 
 
 
   
