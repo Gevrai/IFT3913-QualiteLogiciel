@@ -20,7 +20,7 @@
 	\subsection*{Description du logiciel}
 	Ce logiciel affiche une interface usager simple, très semblable
 	à l'exemple d'interface usager de l'énoncé du travail pratique. Le bouton "Charger
-	fichier" ouvre une fenêtre système permettant de sélectionner un fichier .ucd.
+	fichier" ouvre une fenêtre système permettant de sélectionner un fichier \emph{.ucd}.
 	Lorsqu'un fichier est choisi, il est \emph{parsé} et ses éléments sont affichés dans
 	les champs correspondants de l'interface. L'usager peut selectionner les
   différents éléments de l'interface pour avoir plus de détails sur ceux-ci, qui
@@ -28,26 +28,26 @@
 
   Ainsi, en sélectionnant une classe dans la boîte de gauche, le programme
   affiche toutes les métriques pour cette classe dans la boîte de droite. Il est
-  aussi possible d'afficher la définition d'une métriques dans la boîte de
+  aussi possible d'afficher la définition d'une métrique dans la boîte de
   détails simplement en la sélectionnant.
   
   Il y a certaines métriques qui peuvent retourner une valeur négative qui vaut
-  -1. Ces métriques en questions sont DIT,CLD et NOD. Cela veut dire que lors du
-  calcul le système a détecté qu'une classe "A" à un enfant classe "B" et cette
-  Classe "B" à un enfant "A". À ce moment, les métriques sont automatiquement
-  mises à -1, car il ne peut pas dire avec certitudes s’il se situe à la racine
+  -1. Ces métriques sont \emph{DIT},\emph{CLD} et \emph{NOD}. Cela veut dire que lors du
+  calcul le système a détecté qu'une classe \emph{A} à un enfant classe \emph{B} et cette
+  Classe \emph{B} à un enfant \emph{A}. À ce moment, les métriques sont automatiquement
+  mises à -1, car il ne peut pas dire avec certitude s’il se situe à la racine
   ou à la feuille.
 
   Finalement, l'utilisateur peut exporter les métriques du modèle courant en
   appuyant sur le bouton \emph{Calculer métriques}. Une boîte de dialogue
-  permetera ainsi de sélectionner la destination et un fichier \emph{.csv} sera
+  permettra ainsi de sélectionner la destination et un fichier \emph{.csv} sera
   créé contenant le résultat de toutes les métriques pour chaque classe.
 
   \subsection*{Arborescence de l'archive}
 	\subsubsection*{makefile}
-	Nous avons opté pour un \emph{makefile} histoire de rendre la compilation et l'exécution
+	Nous avons opté pour un \emph{makefile}, à fin de rendre la compilation et l'exécution
 	la plus facile possible sur les machines du DIRO. Un simple \emph{make} compile
-	l'entièreté du logiciel et l'exécute. Pour voir les autres options, \emph{make help}
+	l'entierèté du logiciel et l'exécute. Pour voir les autres options, \emph{make help}
 	explique les différentes commandes possibles.
 
 	\subsubsection*{src}
@@ -79,12 +79,12 @@
 
   \subsection*{Modifications depuis version 1}
 
-  La grande majorité de notre \emph{backend} n'a pas été modifié, nous avons
+  La grande majorité de notre \emph{backend} n'a pas été modifiée, nous avons
   simplement ajouté les métriques. En effet, le paquet \emph{uml}, et le
   diagramme de classe de celui-ci, n'ont subi aucun changement depuis le TP1.
 
   Le pattern MVC étant très modulaire, nous avons pû simplement ajouter les
-  éléments nécessaires au controlleur et à l'interface sans véritables embûches.
+  éléments nécessaires au contrôleur et à l'interface sans véritable embûche.
 
 	\includegraphics[scale=.5]{images/UML_diagram.png}
 
