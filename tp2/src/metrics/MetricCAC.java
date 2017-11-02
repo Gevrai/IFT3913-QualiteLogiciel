@@ -83,10 +83,10 @@ public class MetricCAC extends BaseMetric {
 				{
 					for(int j =0; j<listeSubClass.size();j++)
 					{
-						if(listeSubClass.get(i).getClassName().contains(c.getClassName()))
+						if(listeSubClass.get(j).getClassName().contains(c.getClassName()))
 						{
 							ChildClassPresent=true;
-							return valeur+m.getAssociatedClasses(c).size()+iterativeRelation(m,curentClass,nbIterationMAX,valeur+m.getAssociatedClasses(listeSubClass.get(i)).size());
+							return valeur+m.getAssociatedClasses(c).size()+iterativeRelation(m,curentClass,nbIterationMAX,valeur+m.getAssociatedClasses(listeSubClass.get(j)).size());
 							
 							
 						}
