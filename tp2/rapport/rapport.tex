@@ -148,24 +148,51 @@
   Les fichier \emph{MetricsTestX.java} testent le calcul des métriques sur trois
   fichiers en entrée, et la Table 1 donne les sorties prévues de chacun pour
   chaque métrique.
-  
+ 
   \begin{table}[]
     \centering
+    
     \caption{Valeurs espérées des métriques pour les tests}
-    \begin{tabular}{lcccc}
-      Metrique&\begin{tabular}[c]{@{}c@{}}League.ucd\\ Equipe\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques1.ucd\\ Equipe\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques1.ucd\\ Joueur\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques2.ucd\\ Equipe\end{tabular} \\
-      ANA & 0.33                & 0.33                          & 0                             & 0.33                          \\
-      NOM & 3                   & 4                             & 4                             & 3                             \\
-      NOA & 1                   & 3                             & 3                             & 3                             \\
-      ITC & 1                   & 1                             & 0                             & 1                             \\
-      ETC & 1                   & 1                             & 2                             & 2                             \\
-      CAC & 3                   & 0                             & 0                             & 3                             \\
-      DIT & 0                   & 3                             & 1                             & 1                             \\
-      CLD & 0                   & 0                             & 2                             & 0                             \\
-      NOC & 0                   & 0                             & 1                             & 0                             \\
-      NOD & 0                   & 0                             & 2                             & 0                            
+    \begin{tabular}{lccccc}
+      Metrique&\begin{tabular}[c]{@{}c@{}}League.ucd\\ Equipe\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques1.ucd\\ Equipe\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques1.ucd\\ Joueur\end{tabular} &  \\
+      ANA & 0.33                & 0.33                          & 0                            \\
+      NOM & 3                   & 4                             & 4                            \\
+      NOA & 1                   & 3                             & 3                            \\
+      ITC & 1                   & 1                             & 0                            \\
+      ETC & 1                   & 1                             & 2                            \\
+      CAC & 3                   & 0                             & 0                            \\
+      DIT & 0                   & 3                             & 1                            \\
+      CLD & 0                   & 0                             & 2                            \\
+      NOC & 0                   & 0                             & 1                            \\
+      NOD & 0                   & 0                             & 2                                       
     \end{tabular}
   \end{table}
+
+
+\
+\begin{table}
+	\centering
+	
+	\caption{Valeurs espérées des métriques pour les tests}
+	\begin{tabular}{lccccc}
+		  Metrique&\begin{tabular}[c]{@{}c@{}}LeagueMetriques2.ucd\\ Equipe\end{tabular}&
+		 \begin{tabular} [c]{@{}c@{}}StadeBoucle.ucd\\ Equipe\end{tabular} \\
+		 
+		 ANA   & 0.33         & 0.33             \\
+		 NOM   & 3            & 4                \\
+		 NOA   & 3            & 3                \\
+		 ITC   & 1            & 1                \\
+		 ETC   & 2            & 1                \\
+		 CAC   & 3            & 0                \\
+		 DIT   & 1            & -1               \\
+		 CLD   & 0            & -1               \\
+		 NOC   & 0            & 1                \\
+		 NOD   & 0            & -1               
+	\end{tabular}		 
+\end{table}
+
+\subsubsection*{Problème}
+Lors de l'implémentation des métriques DIT,CLD et NOD, nous nous sommes heurtés à un cas extrême. Pour ces 3 métriques, nous devons faire une recherche itérative pour savoir le nombre de sous-causes directes et indirectes(NOD), le chemin le plus long entre une classe x et sa racine et le chemin le plus long entre la classe x et sa feuille la plus basse. Dans ces 3 cas, le problème se situe si on a une boucle dans les généralisations. Si une classe "A" a comme enfant une classe "B" et la classe "B" a comme enfant la classe "A", on a une boucle. Cela a causé une boucle infinie pour ces métriques.On peut le voir avec le fichier \emph{StadeBoucle.ucd} Pour remédier à ce problème ,nous avons ajouté une condition de vérification de boucle dans notre arbre de généralisation. Lorsqu'il détecte cette boucle de généralisation, il va mettre ces trois métriques à -1 pour signifié qu'il y a un problème dans notre graphe UCD. 
 
   \subsection*{Interface}
   Malheureusement, il est très difficile, voire impossible, de tester
@@ -197,6 +224,7 @@
 
 	\section*{Développements futur}
 	Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
-	et permettre l'exportation du modèle ainsi modifier vers un fichier /.ucd/.
+	et permettre l'exportation du modèle ainsi modifier vers un fichier /.ucd/. Aussi, lorsque l'on détecte un cas problématique d'une boucle à l'infinie pour la généralisation des classes. Il serait intéressant d'afficher un message indiquant qu'il y a un problème avec la généralisation et de retravailler cette section, car on a une boucle. 
+	
 	
 \end{document}
