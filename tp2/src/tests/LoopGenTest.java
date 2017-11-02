@@ -88,7 +88,7 @@ public class LoopGenTest {
 
 	@Test
 	public void MetricsNOC_Test() {
-		assertMetric("NOC", "0", leagueModel, equipeClass); 
+		assertMetric("NOC", "1", leagueModel, equipeClass); 
 	}
 
 	@Test
