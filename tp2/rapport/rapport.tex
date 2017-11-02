@@ -29,6 +29,8 @@
   affiche toutes les métriques pour cette classe dans la boîte de droite. Il est
   aussi possible d'afficher la définition d'une métriques dans la boîte de
   détails simplement en la sélectionnant.
+  
+  Il y a certaines métriques qui peuvent retourner une valeur négative qui vaut -1. Ces métriques en questions sont DIT,CLD et NOD. Cela veut dire que lors du calcul le système a détecté qu'une classe "A" à un enfant classe "B" et cette Classe "B" à un enfant "A". À ce moment, les métriques sont automatiquement mises à -1, car il ne peut pas dire avec certitudes s’il se situe à la racine ou à la feuille.
 
   Finalement, l'utilisateur peut exporter les métriques du modèle courant en
   appuyant sur le bouton \emph{Exporter métriques}. Une boîte de dialogue
