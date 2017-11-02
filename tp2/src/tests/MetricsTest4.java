@@ -20,7 +20,7 @@ import uml.UMLModel;
 import uml.uml_classes.UMLClass;
 import util.FileReader;
 
-public class LoopGenTest {
+public class MetricsTest4 {
 	
 	UMLModel leagueModel;
 	UMLClass equipeClass;
@@ -29,14 +29,14 @@ public class LoopGenTest {
 	public void setUp() throws Exception {
 		try {
 			// Setting up valid league model from file
-			List<String> content = FileReader.getFileContent("./tests/StadeBoucle.ucd");
+			List<String> content = FileReader.getFileContent("./tests/LeagueMetriques4.ucd");
 			leagueModel = UcdSyntaxParser.parse(content);
 			equipeClass = leagueModel.getClassFromName("Equipe");
 			// Setting up other valid models can be done here, needs to add new global variables though
-		} catch (IOException e) { fail("./tests/StadeBoucle.ucd inexistant -> Cannot test");
+		} catch (IOException e) { fail("./tests/LeagueMetriques4.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
-			fail("Error parsing valid file StadeBoucle.ucd"); }
+			fail("Error parsing valid file LeagueMetriques4.ucd"); }
 	}
 
 	// Helper function for tests
