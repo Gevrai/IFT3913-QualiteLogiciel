@@ -21,17 +21,18 @@
 	Ce logiciel affiche une interface usager simple, très semblable
 	à l'exemple d'interface usager de l'énoncé du travail pratique. Le bouton "Charger
 	fichier" ouvre une fenêtre système permettant de sélectionner un fichier .ucd.
-	Lorsqu'un fichier est choisi, il est \emph{parser} et ses éléments sont affichés dans
+	Lorsqu'un fichier est choisi, il est \emph{parsé} et ses éléments sont affichés dans
 	les champs correspondants de l'interface. L'usager peut selectionner les
-  différents éléments de l'interface pour avoir plus de détails sur ceux-ci.
+  différents éléments de l'interface pour avoir plus de détails sur ceux-ci, qui
+  s'afficheront dans la boîte \emph{détails} de l'interface.
 
-  Aussi, en sélectionnant une classe dans la boîte de gauche, le programme
+  Ainsi, en sélectionnant une classe dans la boîte de gauche, le programme
   affiche toutes les métriques pour cette classe dans la boîte de droite. Il est
   aussi possible d'afficher la définition d'une métriques dans la boîte de
   détails simplement en la sélectionnant.
 
   Finalement, l'utilisateur peut exporter les métriques du modèle courant en
-  appuyant sur le bouton \emph{Exporter métriques}. Une boîte de dialogue
+  appuyant sur le bouton \emph{Calculer métriques}. Une boîte de dialogue
   permetera ainsi de sélectionner la destination et un fichier \emph{.csv} sera
   créé contenant le résultat de toutes les métriques pour chaque classe.
 
@@ -106,16 +107,20 @@
 	
 	\subsection*{Parseur}
   Nous avons réglé l'erreur de \emph{parsing} causé par un fichier vide en
-  entrée. On affiche maintenant une petite fenêtre signalant à l'utilisateur que
-  le fichier d'entrée était vide. Par le fait même, les fichiers \emph{.ucd}
-  erronées affiches maintenant aussi cette fenêtre, avec un message approprié.
+  entrée, ceci est maintenant traité comme un fichier valide.
+
+  Aussi, on affiche
+  maintenant une petite fenêtre signalant à l'utilisateur une erreur dans
+  le cas où le fichier d'entrée est invalide. Par le fait même, les fichiers
+  \emph{.ucd} inexistants affichent maintenant aussi cette fenêtre, avec un message
+  approprié.
 	
 	\subsection*{MVC}
   Ce patron s'est avéré être un excellent choix initial pour notre implantation.
   Les ajouts apportés au code pour les nouvelles fonctionnalités étaient isolés
   du code déjà existants. Il ne suffisait que d'ajouter quelques fonctions et
   \emph{Listeners} au controlleur pour les implémenter.
-	
+
 	\section*{Tests}
   Pour faciliter la création et l'exécution de notre suite de tests, nous avons opté pour
   l'écriture de tests automatisés grâce à la librairie bien connue \emph{JUnit}.
@@ -167,10 +172,27 @@
   automatiquement une interface graphique, c'est pourquoi cette section
   contient quelques tests manuels.
 
-  \subsubsection*{Fichier valide - League.ucd}
-  - Fichier en entrée : League.ucd
-  - Sortie prévue : 
+  \subsubsection*{Fichier valide}
+  - Fichier en entrée : tests/League.ucd
 
+  - Sortie prévue : Pas d'erreur et affichage des informations valide comme suit
+
+	\includegraphics[scale=.4]{images/ExecutionNormale.png}
+
+  \subsubsection*{Fichier invalide}
+  - Fichier en entrée : tests/BadFile.ucd
+
+  - Sortie prévue : Popup d'erreur affichant un mesage à l'utilisateur, comme suit
+
+	\includegraphics[scale=.4]{images/ErrorPopup.png}
+
+  \subsubsection{Fichier csv}
+  - Fichier en entrée : League.ucd
+
+  - Action nécessaire : Cliquer sur le bouton \emph{Calculer métriques},
+  choisir le fichier de destination et sauvegarder.
+
+  - Sortie prévue : /tests/League-result.csv
   
 
 	\section*{Développements futur}
