@@ -5,7 +5,7 @@ TEST_DIR := tests
 CLASSPATH := $(TEST_DIR)/lib/junit-4.12.jar:$(TEST_DIR)/lib/hamcrest-core-1.3.jar
 
 MAIN = App
-TESTS = tests.ParserTest tests.MetricsTest1 tests.MetricsTest2 tests.MetricsTest3
+TESTS = tests.ParserTest tests.MetricsTest1 tests.MetricsTest2 tests.MetricsTest3 tests.MetricsTest4
 
 CLASSES := \
 	./src/util/*.java \
