@@ -31,7 +31,7 @@ public class LoopGenTest {
 			// Setting up valid league model from file
 			List<String> content = FileReader.getFileContent("./tests/StadeBoucle.ucd");
 			leagueModel = UcdSyntaxParser.parse(content);
-			equipeClass = leagueModel.getClassFromName("Stade");
+			equipeClass = leagueModel.getClassFromName("Equipe");
 			// Setting up other valid models can be done here, needs to add new global variables though
 		} catch (IOException e) { fail("./tests/StadeBoucle.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
