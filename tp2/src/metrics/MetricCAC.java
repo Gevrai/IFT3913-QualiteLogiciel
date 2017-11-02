@@ -42,8 +42,8 @@ public class MetricCAC extends BaseMetric {
 						if(listeSubClass.get(j).getClassName().contains(c.getClassName()))
 						{
 							ChildClassPresent=true;
-							System.out.println(m.getAssociatedClasses(listeSubClass.get(j)).size());
-							CAC=iterativeRelation(m,curentClass,nbMaxIter,m.getAssociatedClasses(listeSubClass.get(j)).size());
+							
+							CAC=m.getAssociatedClasses(c).size()+iterativeRelation(m,curentClass,nbMaxIter,m.getAssociatedClasses(c).size());
 							
 							
 						}
@@ -55,20 +55,18 @@ public class MetricCAC extends BaseMetric {
 
 			
 		}
-		/*if(!ChildClassPresent)
+		if(!ChildClassPresent)
 		{
 			CAC=m.getAssociatedClasses(c).size();
 			
 		}
 		
-		*/
-		CAC+=m.getAssociatedClasses(c).size();
+	
 		return CAC;
 	}
 	private double iterativeRelation(UMLModel m, UMLClass c , double nbIterationMAX, double valeur)
 	{
-		
-		System.out.println(valeur);
+		boolean ChildClassPresent=false;
 		if(nbIterationMAX== valeur)
 		{
 			return valeur;
@@ -81,23 +79,31 @@ public class MetricCAC extends BaseMetric {
 			
 			if(!listeSubClass.isEmpty())
 			{
-				for(int j =0; j<listeSubClass.size();j++)
+				if(!curentClass.getClassName().contains(c.getClassName()))
 				{
-					if(listeSubClass.get(i).getClassName().contains(c.getClassName()))
+					for(int j =0; j<listeSubClass.size();j++)
 					{
+						if(listeSubClass.get(i).getClassName().contains(c.getClassName()))
+						{
+							ChildClassPresent=true;
+							return valeur+m.getAssociatedClasses(c).size()+iterativeRelation(m,curentClass,nbIterationMAX,valeur+m.getAssociatedClasses(listeSubClass.get(i)).size());
+							
+							
+						}
 						
-						return m.getAssociatedClasses(c).size()+iterativeRelation(m,curentClass,nbIterationMAX,valeur+m.getAssociatedClasses(listeSubClass.get(i)).size());
 						
-						
-					}
-					
-					
+					}	
 				}
+				
 			}
 				
 				
 		}
+		if(!ChildClassPresent)
+		{
+			return m.getAssociatedClasses(c).size();
 			
+		}	
 			
 		return valeur;
 		
