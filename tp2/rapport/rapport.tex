@@ -31,7 +31,12 @@
   aussi possible d'afficher la définition d'une métriques dans la boîte de
   détails simplement en la sélectionnant.
   
-  Il y a certaines métriques qui peuvent retourner une valeur négative qui vaut -1. Ces métriques en questions sont DIT,CLD et NOD. Cela veut dire que lors du calcul le système a détecté qu'une classe "A" à un enfant classe "B" et cette Classe "B" à un enfant "A". À ce moment, les métriques sont automatiquement mises à -1, car il ne peut pas dire avec certitudes s’il se situe à la racine ou à la feuille.
+  Il y a certaines métriques qui peuvent retourner une valeur négative qui vaut
+  -1. Ces métriques en questions sont DIT,CLD et NOD. Cela veut dire que lors du
+  calcul le système a détecté qu'une classe "A" à un enfant classe "B" et cette
+  Classe "B" à un enfant "A". À ce moment, les métriques sont automatiquement
+  mises à -1, car il ne peut pas dire avec certitudes s’il se situe à la racine
+  ou à la feuille.
 
   Finalement, l'utilisateur peut exporter les métriques du modèle courant en
   appuyant sur le bouton \emph{Calculer métriques}. Une boîte de dialogue
@@ -75,12 +80,21 @@
   \subsection*{Modifications depuis version 1}
 
   La grande majorité de notre \emph{backend} n'a pas été modifié, nous avons
-  simplement ajouté les métriques. En effet, le
-  paquet \emph{uml}, dont on avait donné le diagramme de classe dans le rapport
-  du TP1, n'a subi aucun changement.
+  simplement ajouté les métriques. En effet, le paquet \emph{uml}, et le
+  diagramme de classe de celui-ci, n'ont subi aucun changement depuis le TP1.
 
   Le pattern MVC étant très modulaire, nous avons pû simplement ajouter les
-  éléments nécessaires au controlleur et à l'interface sans vraies embûches.
+  éléments nécessaires au controlleur et à l'interface sans véritables embûches.
+
+	\includegraphics[scale=.5]{images/UML_diagram.png}
+
+	\subsection*{MVC}
+  Ce patron s'est avéré être un excellent choix initial pour notre implantation.
+  Les ajouts apportés au code pour les nouvelles fonctionnalités étaient isolés
+  du code déjà existants. Il ne suffisait que d'ajouter quelques fonctions et
+  \emph{Listeners} au controlleur pour les implémenter.
+
+	\includegraphics[scale=.5]{images/MVC_diagram.png}
 	
 	\subsection*{Ajout des métriques}
   Puisque nous avions fait attention d'appliquer au meilleur de nos
@@ -93,9 +107,8 @@
   les sous-classes, est évidemment le calcul de la métrique en particulier.
   Cette hiérarchie permet de facilement ajouter de nouvelles métriques en ne
   définissant que les parties importantes de celle-ci.
-  \begin{center}
-	\includegraphics[scale=.6]{images/Metrics_diagram.png}
-  \end{center}
+
+	\includegraphics[scale=.5]{images/Metrics_diagram.png}
 
   Aussi, comme on peut souvent le voir avec ce genre d'arbre de classe, une
   classe \emph{MetricFactory} est utilisée pour instancier une métrique en
@@ -117,11 +130,6 @@
   \emph{.ucd} inexistants affichent maintenant aussi cette fenêtre, avec un message
   approprié.
 	
-	\subsection*{MVC}
-  Ce patron s'est avéré être un excellent choix initial pour notre implantation.
-  Les ajouts apportés au code pour les nouvelles fonctionnalités étaient isolés
-  du code déjà existants. Il ne suffisait que d'ajouter quelques fonctions et
-  \emph{Listeners} au controlleur pour les implémenter.
 
 	\section*{Tests}
   Pour faciliter la création et l'exécution de notre suite de tests, nous avons opté pour
