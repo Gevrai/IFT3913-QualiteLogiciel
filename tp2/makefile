@@ -1,7 +1,8 @@
 SRC_DIR := src
 BUILD_DIR := _build
+TEST_DIR := tests
 
-CLASSPATH := junit-4.12.jar:hamcrest-core-1.3.jar
+CLASSPATH := $(TEST_DIR)/lib/junit-4.12.jar:$(TEST_DIR)/lib/hamcrest-core-1.3.jar
 
 MAIN = App
 TESTS = tests.ParserTest tests.MetricsTest
@@ -18,8 +19,8 @@ CLASSES := \
 
 JAVAC=javac -d $(BUILD_DIR)
 
-## all   -> Base rule : Compiles from scratch and run the program
-all: clean build run
+## all   -> Base rule : Compiles from scratch, apply whole test suite, and run the program
+all: clean build test run
 
 ## help  -> Shows this help.
 help:
@@ -38,6 +39,6 @@ build :
 run : build
 	java -cp "$(BUILD_DIR)" $(MAIN) testFiles/League.ucd
 
-## test  -> Apply all unit test to compiled program
+## test  -> Apply test suite to compiled program
 test: build
 	java -cp "$(CLASSPATH):./$(BUILD_DIR)" org.junit.runner.JUnitCore $(TESTS)

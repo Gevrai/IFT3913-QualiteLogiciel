@@ -17,9 +17,9 @@ public class ParserTest {
 	@Test
 	public void EmptyFileTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./testFiles/Empty.ucd");
+			List<String> content = FileReader.getFileContent("./tests/Empty.ucd");
 			UcdSyntaxParser.parse(content);
-		} catch (IOException e) { fail("./testFiles/Empty.ucd inexistant -> Cannot test");
+		} catch (IOException e) { fail("./tests/Empty.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Empty file should be a valid form");
@@ -29,9 +29,9 @@ public class ParserTest {
 	@Test
 	public void BadFileTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./testFiles/BadFile.ucd");
+			List<String> content = FileReader.getFileContent("./tests/BadFile.ucd");
 			UcdSyntaxParser.parse(content);
-		} catch (IOException e) { fail("./testFiles/BadFile.ucd inexistant -> Cannot test");
+		} catch (IOException e) { fail("./tests/BadFile.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { /* Very good ! */ }
 
 	}
@@ -39,10 +39,10 @@ public class ParserTest {
 	@Test
 	public void ValidFileTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./testFiles/League.ucd");
+			List<String> content = FileReader.getFileContent("./tests/League.ucd");
 			UMLModel m = UcdSyntaxParser.parse(content);
 			validateModel(m);
-		} catch (IOException e) { fail("./testFiles/League.ucd inexistant -> Cannot test");
+		} catch (IOException e) { fail("./tests/League.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file League.ucd"); }
@@ -52,10 +52,10 @@ public class ParserTest {
 	@Test
 	public void ValidFileNoAttributesTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./testFiles/LigueNoAttributes.ucd");
+			List<String> content = FileReader.getFileContent("./tests/LigueNoAttributes.ucd");
 			UMLModel m = UcdSyntaxParser.parse(content);
 			validateModel(m);
-		} catch (IOException e) { fail("./testFiles/LigueNoAttributes.ucd inexistant -> Cannot test");
+		} catch (IOException e) { fail("./tests/LigueNoAttributes.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file LigueNoAttributes.ucd"); }
@@ -64,10 +64,10 @@ public class ParserTest {
 	@Test
 	public void ValidFileBlanksBetweenTokensTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./testFiles/LigueBlanks.ucd");
+			List<String> content = FileReader.getFileContent("./tests/LigueBlanks.ucd");
 			UMLModel m = UcdSyntaxParser.parse(content);
 			validateModel(m);
-		} catch (IOException e) { fail("./testFiles/LigueBlanks.ucd inexistant -> Cannot test");
+		} catch (IOException e) { fail("./tests/LigueBlanks.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file LigueBlanks.ucd"); }
