@@ -87,6 +87,14 @@ public class UMLController {
 				int i = view.getSelectedAssociationIndex();
 				if (i >= 0) showDetailedInfos(associationsShown.get(i).toString());}
 			});
+
+		this.view.addListMetriquesSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) { 
+				int i = view.getSelectedMetriqueIndex();
+				String def = MetricFactory.getMetric(metricsOrder[i]).getDefinition();
+				if (i >= 0) showDetailedInfos(def);}
+			});
+
 	}
 
 	// Opens up a dialog for the user to find a file and parses it if he does

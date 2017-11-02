@@ -219,7 +219,8 @@ public class UMLView extends JFrame {
 		listMethodes.getSelectionModel().addListSelectionListener(listener); }
 	public void addListAssociationSelectionListener(ListSelectionListener listener) {
 		listAssociations.getSelectionModel().addListSelectionListener(listener); }
-
+	public void addListMetriquesSelectionListener(ListSelectionListener listener) {
+		listMetriques.getSelectionModel().addListSelectionListener(listener); }
 	
 	// Setter and getter of UI list objects
 	public void setFilePathText(String filePath) { this.textFileName.setText(filePath); }
@@ -235,6 +236,7 @@ public class UMLView extends JFrame {
 	public void setListAssociation(String[] associations) { listAssociations.setListData(associations); }
 	public int getSelectedAssociationIndex() { return listAssociations.getSelectedIndex(); }
 	public void setListMetriques(String[] metriques) { listMetriques.setListData(metriques); }
+	public int getSelectedMetriqueIndex() { return listMetriques.getSelectedIndex(); }
 
 	// Setter for "detailed" text box
 	public void setDetailedText(String detailedInfos) { this.textDetails.setText(detailedInfos); }
