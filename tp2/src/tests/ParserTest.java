@@ -13,13 +13,30 @@ import uml.UMLModel;
 import util.FileReader;
 
 public class ParserTest {
+	
+	// Very basic validation of entry model...
+	public void validateModel(UMLModel m, String modelName, int nbClasses, int nbAssoc) {
+		assertEquals(m.getModelName(), modelName);
+		assertEquals(m.getClasses().size(), nbClasses);
+		assertEquals(m.getAssociations().size(), nbAssoc);
+	}
+
+	// Parse a file and validate some informations about it
+	public void fileParse(String filePath, String modelName, int nbClasses, int nbAssoc) throws UmlParsingError {
+		try {
+			List<String> content = FileReader.getFileContent(filePath);
+			UMLModel m = UcdSyntaxParser.parse(content);
+			validateModel(m, modelName, nbClasses, nbAssoc);
+		} catch (IOException e) { 
+			fail(filePath + " does not exist -> Cannot test");
+		}
+		
+	}
 
 	@Test
 	public void EmptyFileTest() {
-		try {
-			List<String> content = FileReader.getFileContent("./tests/Empty.ucd");
-			UcdSyntaxParser.parse(content);
-		} catch (IOException e) { fail("./tests/Empty.ucd inexistant -> Cannot test");
+		try { 
+			fileParse("./tests/Empty.ucd", "", 0,0); 
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Empty file should be a valid form");
@@ -29,33 +46,24 @@ public class ParserTest {
 	@Test
 	public void BadFileTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./tests/BadFile.ucd");
-			UcdSyntaxParser.parse(content);
-		} catch (IOException e) { fail("./tests/BadFile.ucd inexistant -> Cannot test");
-		} catch (UmlParsingError e) { /* Very good ! */ }
+			fileParse("./tests/BadFile.ucd", "shouldnothappen", -1,-1);
+		} catch (UmlParsingError e) { /*  This should happen ! ! */ }
 
 	}
 
 	@Test
 	public void ValidFileTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./tests/League.ucd");
-			UMLModel m = UcdSyntaxParser.parse(content);
-			validateModel(m);
-		} catch (IOException e) { fail("./tests/League.ucd inexistant -> Cannot test");
+			fileParse("./tests/League.ucd", "Ligue", 5, 4);
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file League.ucd"); }
-
 	}
 
 	@Test
 	public void ValidFileNoAttributesTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./tests/LigueNoAttributes.ucd");
-			UMLModel m = UcdSyntaxParser.parse(content);
-			validateModel(m);
-		} catch (IOException e) { fail("./tests/LigueNoAttributes.ucd inexistant -> Cannot test");
+			fileParse("./tests/LigueNoAttributes.ucd", "Ligue", 5, 4);
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file LigueNoAttributes.ucd"); }
@@ -64,20 +72,19 @@ public class ParserTest {
 	@Test
 	public void ValidFileBlanksBetweenTokensTest() {
 		try {
-			List<String> content = FileReader.getFileContent("./tests/LigueBlanks.ucd");
-			UMLModel m = UcdSyntaxParser.parse(content);
-			validateModel(m);
-		} catch (IOException e) { fail("./tests/LigueBlanks.ucd inexistant -> Cannot test");
+			fileParse("./tests/LigueBlanks.ucd", "Ligue", 5, 4);
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file LigueBlanks.ucd"); }
 	}
-	
-	// Very poor validation of entry model, IMPORTANT NOT TO CHANGE INPUT FILES !!!
-	public void validateModel(UMLModel m) {
-		assertEquals(m.getModelName(), "Ligue");
-		assertEquals(m.getClasses().size(), 5);
-		assertEquals(m.getAssociations().size(), 4);
-	}
 
+	@Test
+	public void ValidFileLeagueMetriques() {
+		try {
+			fileParse("./tests/LeagueMetriques.ucd", "Ligue", 5, 6);
+		} catch (UmlParsingError e) { 
+			e.printStackTrace();
+			fail("Error parsing valid file LeagueMetriques.ucd"); }
+	}
+	
 }

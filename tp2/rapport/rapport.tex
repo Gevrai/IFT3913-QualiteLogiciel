@@ -115,7 +115,49 @@
 	
 	\section*{Tests}
   Pour faciliter l'exécution de notre suite de tests, nous avons opté pour
-  l'écriture de tests automatisés grâce à la librairie \emph{JUnit}. 
+  l'écriture de tests automatisés grâce à la librairie bien connue \emph{JUnit}.
+  L'immense avantage de cette approche est d'éliminer la lourde tâche
+  d'effectuer des tests manuels à chaque fois que l'on effectue un changement
+  dans le code. Aussi, puisque nous avions déjà les résultats de certaines
+  métriques, un de nous a écrit les tests pendant que l'autre implémentait les
+  dites métriques. On pourrait dire que cette méthode de travail est favorable
+  car celui qui écrit les tests n'est pas biaisé par son propre travail.
+
+  Il est a noté que lorsque l'on compile avec la commande \texttt{make all}, la
+  compilation ne réussira pas si un ou plusieurs tests échouent. 
+
+  \subsection{Parseur}
+  Le fichier \emph{ParserTest.java} teste notre parseur avec tous les fichiers
+  offerts par le démonstrateur, et notre programme passe tous ces tests. Nous
+  avons aussi ajouté quelques tests personnels, soit \emph{BadFile.ucd} qui est
+  simplement un exemple de fichier invalide devant retourner une erreur dans le
+  parseur, ainsi que \emph{LeagueMetriques.ucd} permettant de mieux tester
+  certaines métriques.
+
+  Tous ces fichiers passe correctement nos tests.
+
+  \subsection{Métriques}
+  Le fichier \emph{MetricsTest.java} teste le calcul des métriques sur deux
+  fichiers en entrée, et voici les sorties prévues de chacun pour chaque métrique.
+  
+  \begin{table}[]
+    \centering
+    \caption{My caption}
+    \label{my-label}
+    \begin{tabular}{ccccccccccc}
+                          & ANA  & NOM & NOA & ITC & ETC & CAC & DIT & CLD & NOC & NOD \\
+      League.ucd          & 0.33 & 3   & 1   & 1   & 1   & 3   & 0   & 0   & 0   & 0   \\
+      LeagueMetriques.ucd &      &     &     &     &     &     &     &     &     &     
+    \end{tabular}
+  \end{table}
+
+  \subsection{Interface}
+  Malheureusement, il est très difficile, voire impossible, de tester
+  automatiquement une interface graphique, c'est pourquoi cette section
+  contient quelques tests manuels.
+
+
+  
 
 	\section*{Développements futur}
 	Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
