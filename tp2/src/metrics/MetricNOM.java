@@ -43,7 +43,7 @@ public class MetricNOM extends BaseMetric {
 											for(int l=0 ; l<listClass.get(j).getOperations().size();l++)
 											{
 												if(listClass.get(j).getOperations().get(l).getArgs().toString().contains(listOperation.get(i).getArgs().toString())
-														&& listClass.get(j).getOperations().get(l).getName()==listOperation.get(i).getName())
+														&& listClass.get(j).getOperations().get(l).getName().contains(listOperation.get(i).getName()))
 												{
 													NOM-=1;
 												}
