@@ -178,7 +178,7 @@
     
     \caption{Valeurs espérées des métriques pour les tests}
     \begin{tabular}{lccccc}
-		  Metrique&\begin{tabular}[c]{@{}c@{}}LeagueMetriques2.ucd\\ Equipe\end{tabular}& \begin{tabular} [c]{@{}c@{}}StadeBoucle.ucd\\ Equipe\end{tabular} \\
+		  Metrique&\begin{tabular}[c]{@{}c@{}}LeagueMetriques2.ucd\\ Equipe\end{tabular}& \begin{tabular} [c]{@{}c@{}}LeagueMetriques4.ucd\\ Equipe\end{tabular} \\
 		 ANA   & 0.33         & 0.33             \\
 		 NOM   & 3            & 4                \\
 		 NOA   & 3            & 3                \\
@@ -192,7 +192,7 @@
     \end{tabular}		 
   \end{table}
 
-  \subsubsection*{Problème de bouclage - StadeBoucle.ucd}
+  \subsubsection*{Problème de bouclage - LeagueMetriques4.ucd}
   Lors de l'implémentation des métriques DIT,CLD et NOD, nous nous sommes heurtés à
   un cas extrême. Pour ces 3 métriques, nous devons faire une recherche
   itérative pour savoir le nombre de sous-causes directes et indirectes(NOD), le
@@ -201,7 +201,7 @@
   situe si on a une boucle dans les généralisations. Si une classe "A" a comme
   enfant une classe "B" et la classe "B" a comme enfant la classe "A", on a une
   boucle. Cela a causé une boucle infinie pour ces métriques. On peut le voir
-  avec le fichier \emph{StadeBoucle.ucd}. Pour remédier à ce problème, nous avons
+  avec le fichier \emph{LeagueMetrique4.ucd}. Pour remédier à ce problème, nous avons
   ajouté une condition de vérification de boucle dans notre arbre de
   généralisations. Lorsqu'il détecte cette boucle de généralisation, il
   affectera la valeur de -1 à ces trois métriques, signifiant ainsi qu'il y a un
