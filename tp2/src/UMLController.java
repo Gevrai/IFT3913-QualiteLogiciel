@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -145,6 +146,7 @@ public class UMLController {
 			List<String> fileContent = FileReader.getFileContent(filePath);
 			this.model = UcdSyntaxParser.parse(fileContent);
 			this.view.setFilePathText(filePath);
+			cleanUI();
 			showClasses();
 		} catch (IOException e) {
 			new MessagePopup(filePath + " is not a valid ucd file.");
@@ -153,6 +155,22 @@ public class UMLController {
 		}
 	}
 	
+	// Empties all boxes in UI
+	private void cleanUI() {
+		this.classesShown = new ArrayList<UMLClass>();
+		this.view.setListClasses(new String[0]);
+		this.attributesShown = new ArrayList<Attribute>();
+		this.view.setListAttributs(new String[0]);
+		this.operationsShown = new ArrayList<Operation>();
+		this.view.setListMethodes(new String[0]);
+		this.subclassesShown = new ArrayList<UMLClass>();
+		this.view.setListSousClasses(new String[0]);
+		this.associationsShown = new ArrayList<UMLAssociation>();
+		this.view.setListAssociation(new String[0]);
+		this.view.setDetailedText("");
+		this.view.setListMetriques(new String[0]);
+	}
+
 	private UMLClass getSelectedClass() {
 		if (classesShown == null) return null;
 		int index = this.view.getSelectedClassIndex();
@@ -185,8 +203,9 @@ public class UMLController {
 	// Show the attributes of currently selected class in UI
 	private void showAttributs() {
 		UMLClass c = getSelectedClass();
+		List<Attribute> listAttributs;
 		if (c == null) { return; }
-		List<Attribute> listAttributs = c.getAttributes();
+		listAttributs = c.getAttributes();
 		String[] attributs = new String[listAttributs.size()];
 		for (int i=0; i<attributs.length;i++) {
 			Attribute a = listAttributs.get(i);

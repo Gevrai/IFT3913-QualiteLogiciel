@@ -1,6 +1,5 @@
 package tests;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -17,23 +16,23 @@ import uml.UMLModel;
 import uml.uml_classes.UMLClass;
 import util.FileReader;
 
-public class CACTest {
+public class MetricsTest1 {
 	
 	UMLModel leagueModel;
 	UMLClass equipeClass;
 	
 	@Before
 	public void setUp() throws Exception {
+		List<String> content;
 		try {
-			// Setting up valid league model from file
-			List<String> content = FileReader.getFileContent("./tests/JoueurTestCAC.ucd");
+			// Setting up model for League.ucd (given by demonstrator)
+			content = FileReader.getFileContent("./tests/League.ucd");
 			leagueModel = UcdSyntaxParser.parse(content);
-			equipeClass = leagueModel.getClassFromName("Joueur");
-			// Setting up other valid models can be done here, needs to add new global variables though
-		} catch (IOException e) { fail("./tests/JoueurTestCAC.ucd inexistant -> Cannot test");
+			equipeClass = leagueModel.getClassFromName("Equipe");
+		} catch (IOException e) { fail("./tests/League.ucd inexistant -> Cannot test");
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
-			fail("Error parsing valid file JoueurTestCAC.ucd"); }
+			fail("Error parsing valid file League.ucd"); }
 	}
 
 	// Helper function for tests
@@ -55,7 +54,7 @@ public class CACTest {
 
 	@Test
 	public void MetricsNOA_Test() {
-		assertMetric("NOA", "3", leagueModel, equipeClass); 
+		assertMetric("NOA", "1", leagueModel, equipeClass); 
 	}
 
 	@Test
@@ -65,7 +64,7 @@ public class CACTest {
 
 	@Test
 	public void MetricsETC_Test() {
-		assertMetric("ETC", "2", leagueModel, equipeClass); 
+		assertMetric("ETC", "1", leagueModel, equipeClass); 
 	}
 
 	@Test
@@ -75,7 +74,7 @@ public class CACTest {
 
 	@Test
 	public void MetricsDIT_Test() {
-		assertMetric("DIT", "1", leagueModel, equipeClass); 
+		assertMetric("DIT", "0", leagueModel, equipeClass); 
 	}
 
 	@Test
@@ -94,4 +93,3 @@ public class CACTest {
 	}
 
 }
-

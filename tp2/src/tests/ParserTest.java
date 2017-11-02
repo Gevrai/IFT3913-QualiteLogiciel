@@ -16,9 +16,9 @@ public class ParserTest {
 	
 	// Very basic validation of entry model...
 	public void validateModel(UMLModel m, String modelName, int nbClasses, int nbAssoc) {
-		assertEquals(m.getModelName(), modelName);
-		assertEquals(m.getClasses().size(), nbClasses);
-		assertEquals(m.getAssociations().size(), nbAssoc);
+		assertEquals(modelName, m.getModelName());
+		assertEquals(nbClasses, m.getClasses().size());
+		assertEquals(nbAssoc, m.getAssociations().size());
 	}
 
 	// Parse a file and validate some informations about it
@@ -81,7 +81,7 @@ public class ParserTest {
 	@Test
 	public void ValidFileLeagueMetriques() {
 		try {
-			fileParse("./tests/LeagueMetriques.ucd", "Ligue", 5, 6);
+			fileParse("./tests/LeagueMetriques1.ucd", "Ligue", 5, 3);
 		} catch (UmlParsingError e) { 
 			e.printStackTrace();
 			fail("Error parsing valid file LeagueMetriques.ucd"); }

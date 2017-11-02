@@ -117,7 +117,7 @@
   \emph{Listeners} au controlleur pour les implémenter.
 	
 	\section*{Tests}
-  Pour faciliter l'exécution de notre suite de tests, nous avons opté pour
+  Pour faciliter la création et l'exécution de notre suite de tests, nous avons opté pour
   l'écriture de tests automatisés grâce à la librairie bien connue \emph{JUnit}.
   L'immense avantage de cette approche est d'éliminer la lourde tâche
   d'effectuer des tests manuels à chaque fois que l'on effectue un changement
@@ -129,7 +129,7 @@
   Il est a noté que lorsque l'on compile avec la commande \texttt{make all}, la
   compilation ne réussira pas si un ou plusieurs tests échouent. 
 
-  \subsection{Parseur}
+  \subsection*{Parseur}
   Le fichier \emph{ParserTest.java} teste notre parseur avec tous les fichiers
   offerts par le démonstrateur, et notre programme passe tous ces tests. Nous
   avons aussi ajouté quelques tests personnels, soit \emph{BadFile.ucd} qui est
@@ -139,35 +139,37 @@
 
   Tous ces fichiers passe correctement nos tests.
 
-  \subsection{Métriques}
-  Le fichier \emph{MetricsTest.java} teste le calcul des métriques sur deux
-  fichiers en entrée, et voici les sorties prévues de chacun pour chaque métrique.
-  
+  \subsection*{Métriques}
+  Les fichier \emph{MetricsTestX.java} testent le calcul des métriques sur trois
+  fichiers en entrée, et la Table 1 donne les sorties prévues de chacun pour
+  chaque métrique.
   
   \begin{table}[]
     \centering
-    \caption{Valeurs des métriques pour les deux fichiers de tests, sur la
-      classe équipe}
-    \begin{tabular}{lcccccccccc}
-                          & ANA  & NOM & NOA & ITC & ETC & CAC & DIT & CLD & NOC & NOD \\
-      League.ucd          & 0.33 & 3   & 1   & 1   & 1   & 3   & 0   & 0   & 0   & 0   \\
-      LeagueMetriques.ucd &      &     &     &     &     &     &     &     &     &     \\
-      JoueurTestCAC.ucd   & 0.33 & 3   & 3   & 1   & 2   & 3   & 1   & 0   & 0   & 0   \\
-      EquipeTestDIT.ucd  & 0.33 & 4   & 3   & 1   & 1   & 0   & 3   & 0   & 0   & 0   \\
-      JoueurTestCLD.ucd  & 0    & 4   & 3   & 0   & 2   & 0   & 1   & 2   & 1   & 0   \\
-      
+    \caption{Valeurs espérées des métriques pour les tests}
+    \begin{tabular}{lcccc}
+      Metrique&\begin{tabular}[c]{@{}c@{}}League.ucd\\ Equipe\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques1.ucd\\ Equipe\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques1.ucd\\ Joueur\end{tabular} & \begin{tabular}[c]{@{}c@{}}LeagueMetriques2.ucd\\ Equipe\end{tabular} \\
+      ANA & 0.33                & 0.33                          & 0                             & 0.33                          \\
+      NOM & 3                   & 4                             & 4                             & 3                             \\
+      NOA & 1                   & 3                             & 3                             & 3                             \\
+      ITC & 1                   & 1                             & 0                             & 1                             \\
+      ETC & 1                   & 1                             & 2                             & 2                             \\
+      CAC & 3                   & 0                             & 0                             & 3                             \\
+      DIT & 0                   & 3                             & 1                             & 1                             \\
+      CLD & 0                   & 0                             & 2                             & 0                             \\
+      NOC & 0                   & 0                             & 1                             & 0                             \\
+      NOD & 0                   & 0                             & 2                             & 0                            
     \end{tabular}
   \end{table}
 
-  \subsection{Interface}
+  \subsection*{Interface}
   Malheureusement, il est très difficile, voire impossible, de tester
   automatiquement une interface graphique, c'est pourquoi cette section
   contient quelques tests manuels.
 
-  \subsubsection{Fichier valide - League.ucd}
+  \subsubsection*{Fichier valide - League.ucd}
   - Fichier en entrée : League.ucd
   - Sortie prévue : 
-
 
   
 
