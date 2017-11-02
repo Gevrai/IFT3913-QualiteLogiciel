@@ -47,7 +47,7 @@ public class MetricsTest2 {
 	@Test
 	public void MetricsANA_Test() { 
 		assertMetric("ANA", "0.33", leagueModel, equipeClass); 
-		assertMetric("ANA", "0", leagueModel, joueurClass); 
+		assertMetric("ANA", "0.00", leagueModel, joueurClass); 
 	}
 
 	@Test

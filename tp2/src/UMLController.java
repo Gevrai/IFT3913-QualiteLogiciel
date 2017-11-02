@@ -142,7 +142,7 @@ public class UMLController {
 		for (UMLClass c : this.model.getClasses()) {
 			csvString += "\n" + c.getClassName();
 			for (String s : metricsOrder) {
-				csvString += "," + MetricFactory.getMetric(s).compute(this.model, c);
+				csvString += "," + MetricFactory.getMetric(s).computeToFormattedString(this.model, c);
 			}
 		}
 		return csvString;

@@ -38,7 +38,8 @@
   mises à -1, car il ne peut pas dire avec certitude s’il se situe à la racine
   ou à la feuille.
 
-  Finalement, l'utilisateur peut exporter les métriques du modèle courant en
+  Finalement, l'utilisateur peut exporter toutes les métriques de toutes les
+  classes du modèle courant en
   appuyant sur le bouton \emph{Calculer métriques}. Une boîte de dialogue
   permettra ainsi de sélectionner la destination et un fichier \emph{.csv} sera
   créé contenant le résultat de toutes les métriques pour chaque classe.
@@ -51,20 +52,14 @@
 	explique les différentes commandes possibles.
 
 	\subsubsection*{src}
-  Contient tous le code du projet, sans exception. Puisque nous n'avons utilisé
-  aucune librairie externe dans le projet, l'entièreté du code source s'y trouve.
-  La seule librairie externe utilisée est en effet \emph{JUnit}, mais le code
-  pour les tests est séparé du code source du projet.
+  Contient tous le code du projet, sans exception. 
 
   La fonction \emph{main} de notre programme se trouve dans la classe
   \emph{App.java}, que nous avons gardé la plus minimale possible.
 
-  Évidemment, l'arborescence de ce fichier suit l'arborescence de paquet de
-  notre code que l'on avait présenté en grande partie dans le rapport du TP1.
-
 	\subsubsection*{\_build}
   Histoire de garder notre dossier src assez propre, la compilation des fichiers
-  \emph{.class} se fait vers ce dossier.
+  \emph{.class} se fait vers ce dossier. \emph{make clean} supprime ce dossier.
 
 	\subsubsection*{rapport}
   Tout simplement toutes les ressources nécessaires à l'impression de ce
@@ -91,34 +86,32 @@
 	\subsection*{MVC}
   Ce patron s'est avéré être un excellent choix initial pour notre implantation.
   Les ajouts apportés au code pour les nouvelles fonctionnalités étaient isolés
-  du code déjà existants. Il ne suffisait que d'ajouter quelques fonctions et
-  \emph{Listeners} au controlleur pour les implémenter.
+  du code déjà existant. Il ne suffisait que d'ajouter quelques fonctions et
+  \emph{Listeners} au contrôleur pour les implémenter.
 
 	\includegraphics[scale=.5]{images/MVC_diagram.png}
 	
 	\subsection*{Ajout des métriques}
   Puisque nous avions fait attention d'appliquer au meilleur de nos
-  connaissances, les \emph{patterns} de conception orienté-objet, notre code
+  connaissances les \emph{patterns} de conception orienté-objet, notre code
   était assez facile à étendre avec des nouvelles fonctionalités. En effet, pour
   représenter les calculs de métriques, nous avons créé une classe abstraite
   \emph{BaseMetric} contenant tous les attributs et méthodes communes à toutes
   les métriques, avec la seule méthode abstraite
-  \texttt{compute(UMLModel,UMLClass)}. Cette méthode, qui doit être défini par
-  les sous-classes, est évidemment le calcul de la métrique en particulier.
+  \texttt{compute(UMLModel,UMLClass)}. Cette méthode, qui doit être définie par
+  les sous-classes, est évidemment le calcul de cette métrique.
   Cette hiérarchie permet de facilement ajouter de nouvelles métriques en ne
-  définissant que les parties importantes de celle-ci.
+  définissant que les parties importantes de celles-ci.
 
 	\includegraphics[scale=.5]{images/Metrics_diagram.png}
 
-  Aussi, comme on peut souvent le voir avec ce genre d'arbre de classe, une
+  Aussi, comme on peut souvent le voir avec ce genre d'arbre de classes, une
   classe \emph{MetricFactory} est utilisée pour instancier une métrique en
   particulier, simplement avec son acronyme.
 
-  Ces métriques sont tous simplement utilisées par le controlleur principal
+  Ces métriques sont tous simplement utilisées par le contrôleur principal
   sur le modèle \emph{UML} chargé dans le programme. Il est à noter que le
   paquet \emph{uml} n'a aucune connaissance des métriques.
-	
-	\section*{Implantation}
 	
 	\subsection*{Parseur}
   Nous avons réglé l'erreur de \emph{parsing} causé par un fichier vide en
@@ -126,7 +119,7 @@
 
   Aussi, on affiche
   maintenant une petite fenêtre signalant à l'utilisateur une erreur dans
-  le cas où le fichier d'entrée est invalide. Par le fait même, les fichiers
+  le cas où le fichier d'entrée est invalide. De même, les fichiers
   \emph{.ucd} inexistants affichent maintenant aussi cette fenêtre, avec un message
   approprié.
 	
@@ -141,7 +134,7 @@
   dites métriques. On pourrait dire que cette méthode de travail est favorable
   car celui qui écrit les tests n'est pas biaisé par son propre travail.
 
-  Il est a noté que lorsque l'on compile avec la commande \texttt{make all}, la
+  Il est à noter que lorsque l'on compile avec la commande \texttt{make all}, la
   compilation ne réussira pas si un ou plusieurs tests échouent. 
 
   \subsection*{Parseur}
@@ -156,7 +149,7 @@
 
   \subsection*{Métriques}
   Les fichier \emph{MetricsTestX.java} testent le calcul des métriques sur trois
-  fichiers en entrée, et la Table 1 donne les sorties prévues de chacun pour
+  fichiers en entrée, et les Table 1 et 2 donne les sorties prévues de chacun pour
   chaque métrique.
  
   \begin{table}[]
@@ -200,20 +193,26 @@
   \end{table}
 
   \subsubsection*{Problème de bouclage - StadeBoucle.ucd}
-  Lors de l'implémentation des métriques DIT,CLD et NOD, nous nous sommes heurté à
+  Lors de l'implémentation des métriques DIT,CLD et NOD, nous nous sommes heurtés à
   un cas extrême. Pour ces 3 métriques, nous devons faire une recherche
   itérative pour savoir le nombre de sous-causes directes et indirectes(NOD), le
   chemin le plus long entre une classe x et sa racine et le chemin le plus long
   entre la classe x et sa feuille la plus basse. Dans ces 3 cas, le problème se
   situe si on a une boucle dans les généralisations. Si une classe "A" a comme
   enfant une classe "B" et la classe "B" a comme enfant la classe "A", on a une
-  boucle. Cela a causé une boucle infinie pour ces métriques.On peut le voir
-  avec le fichier \emph{StadeBoucle.ucd} Pour remédier à ce problème ,nous avons
+  boucle. Cela a causé une boucle infinie pour ces métriques. On peut le voir
+  avec le fichier \emph{StadeBoucle.ucd}. Pour remédier à ce problème, nous avons
   ajouté une condition de vérification de boucle dans notre arbre de
-  généralisation. Lorsqu'il détecte cette boucle de généralisation, il va mettre
-  ces trois métriques à -1 pour signifié qu'il y a un problème dans notre graphe
-  UCD.
+  généralisations. Lorsqu'il détecte cette boucle de généralisation, il
+  affectera la valeur de -1 à ces trois métriques, signifiant ainsi qu'il y a un
+  problème dans le graphe d'associations.
 
+  Lorsque l'on détecte un cas problématique d'une boucle à l'infinie pour
+  la généralisation des classes, il serait possible d'afficher un message
+  indiquant qu'il y a un problème avec cette généralisation. Ceci dit, on a
+  préféré seulement montrer ce code d'erreur car le fichier d'entrée n'est pas
+  fautif, mais bien la conception UML elle même.
+  
   \subsection*{Interface}
   Malheureusement, il est très difficile, voire impossible, de tester
   automatiquement une interface graphique, c'est pourquoi cette section
@@ -222,7 +221,7 @@
   \subsubsection*{Fichier valide}
   - Fichier en entrée : tests/League.ucd
 
-  - Sortie prévue : Pas d'erreur et affichage des informations valide comme suit
+  - Sortie prévue : Pas d'erreur et affichage des informations valides comme suit
 
 	\includegraphics[scale=.4]{images/ExecutionNormale.png}
 
@@ -242,9 +241,9 @@
   - Sortie prévue : /tests/League-result.csv
   
 
-	\section*{Développements futur}
+	\section*{Développements futurs}
 	Il serait très utile de pouvoir modifier un modèle UML directement à partir de l'interface,
-	et permettre l'exportation du modèle ainsi modifier vers un fichier /.ucd/. Aussi, lorsque l'on détecte un cas problématique d'une boucle à l'infinie pour la généralisation des classes. Il serait intéressant d'afficher un message indiquant qu'il y a un problème avec la généralisation et de retravailler cette section, car on a une boucle. 
+	et permettre l'exportation du modèle ainsi modifié vers un fichier \emph{.ucd}.
 	
 	
 \end{document}
